@@ -4,693 +4,976 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>K&N Premium Detailing</title>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@300;600;700;900&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --navy: #0A0F2C;
-    --yellow: #FFE500;
-    --cyan: #00D4FF;
-    --white: #FFFFFF;
-    --charcoal: #141830;
-    --mid: #1E2448;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'Barlow', sans-serif;
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 48px;
-    background: rgba(10,15,44,0.92);
-    backdrop-filter: blur(10px);
-    border-bottom: 2px solid var(--yellow);
-  }
-
-  .nav-logo {
-    font-family: 'Anton', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 1px;
-    color: var(--white);
-  }
-
-  .nav-logo span { color: var(--yellow); }
-
-  .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a {
-    color: var(--white);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--yellow); }
-
-  .nav-cta {
-    background: var(--yellow);
-    color: var(--navy) !important;
-    padding: 10px 22px;
-    border-radius: 4px;
-    font-weight: 900 !important;
-  }
-  .nav-cta:hover { background: var(--cyan) !important; color: var(--navy) !important; }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    padding: 120px 48px 80px;
-  }
-
-  /* animated shine sweep */
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -50%; left: -60%;
-    width: 60%; height: 200%;
-    background: linear-gradient(105deg, transparent 40%, rgba(0,212,255,0.07) 50%, transparent 60%);
-    animation: shine 4s ease-in-out infinite;
-    pointer-events: none;
-  }
-
-  @keyframes shine {
-    0%   { transform: translateX(0); }
-    50%  { transform: translateX(280%); }
-    100% { transform: translateX(280%); }
-  }
-
-  /* diagonal slash BG */
-  .hero-slash {
-    position: absolute;
-    top: 0; right: -10%;
-    width: 55%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--yellow) 0%, #FFC107 100%);
-    clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
-    z-index: 0;
-  }
-
-  .hero-slash::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: repeating-linear-gradient(
-      -45deg,
-      rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 2px,
-      transparent 2px, transparent 12px
-    );
-  }
-
-  .hero-content {
-    position: relative; z-index: 2;
-    max-width: 680px;
-  }
-
-  .hero-eyebrow {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 16px;
-  }
-
-  .hero h1 {
-    font-family: 'Anton', sans-serif;
-    font-size: clamp(3.5rem, 8vw, 7rem);
-    line-height: 0.95;
-    letter-spacing: -1px;
-    text-transform: uppercase;
-    color: var(--white);
-    margin-bottom: 12px;
-  }
-
-  .hero h1 .accent { color: var(--yellow); }
-
-  .hero-sub {
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: rgba(255,255,255,0.75);
-    max-width: 480px;
-    line-height: 1.6;
-    margin-bottom: 40px;
-  }
-
-  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
-
-  .btn-primary {
-    background: var(--yellow);
-    color: var(--navy);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 16px 36px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .btn-primary:hover { background: var(--cyan); transform: translateY(-2px); }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--white);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 14px 36px;
-    border: 2px solid rgba(255,255,255,0.4);
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: border-color 0.2s, color 0.2s;
-  }
-  .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); }
-
-  /* stats bar */
-  .stats-bar {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    background: var(--charcoal);
-    border-top: 3px solid var(--yellow);
-    display: flex;
-    z-index: 5;
-  }
-
-  .stat {
-    flex: 1;
-    padding: 24px 20px;
-    text-align: center;
-    border-right: 1px solid rgba(255,255,255,0.08);
-  }
-  .stat:last-child { border-right: none; }
-
-  .stat-num {
-    font-family: 'Anton', sans-serif;
-    font-size: 2.2rem;
-    color: var(--yellow);
-    display: block;
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
-    margin-top: 4px;
-    display: block;
-  }
-
-  /* ── MARQUEE ── */
-  .marquee-wrap {
-    background: var(--yellow);
-    padding: 14px 0;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .marquee-track {
-    display: inline-block;
-    animation: marquee 22s linear infinite;
-    font-family: 'Anton', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 3px;
-    color: var(--navy);
-  }
-
-  .marquee-track span { margin-right: 60px; }
-  .marquee-track .dot { color: rgba(10,15,44,0.4); }
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-
-  /* ── SECTIONS ── */
-  section { padding: 100px 48px; }
-
-  .section-eyebrow {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-family: 'Anton', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    text-transform: uppercase;
-    line-height: 1;
-    margin-bottom: 20px;
-  }
-
-  .section-title .y { color: var(--yellow); }
-
-  /* ── SERVICES ── */
-  #services { background: var(--charcoal); }
-
-  .services-intro { max-width: 580px; margin-bottom: 64px; }
-
-  .services-intro p {
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.7;
-    margin-top: 16px;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2px;
-  }
-
-  .service-card {
-    background: var(--mid);
-    padding: 40px 32px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s;
-    cursor: default;
-  }
-
-  .service-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 4px; height: 100%;
-    background: var(--yellow);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.3s;
-  }
-
-  .service-card:hover { transform: translateY(-4px); }
-  .service-card:hover::before { transform: scaleY(1); }
-
-  .service-icon {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
-
-  .service-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--white);
-    margin-bottom: 10px;
-  }
-
-  .service-desc {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.65;
-    margin-bottom: 20px;
-  }
-
-  .service-price {
-    font-family: 'Anton', sans-serif;
-    font-size: 1.8rem;
-    color: var(--yellow);
-  }
-
-  .service-price small {
-    font-family: 'Barlow', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: rgba(255,255,255,0.4);
-    text-transform: uppercase;
-    vertical-align: middle;
-    margin-left: 4px;
-  }
-
-  /* ── PRODUCTS ── */
-  #products { background: var(--navy); }
-
-  .products-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-    margin-top: 60px;
-  }
-
-  .products-text p {
-    font-size: 1.05rem;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.75;
-    margin-bottom: 32px;
-  }
-
-  .product-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--mid);
-    border: 1px solid rgba(255,229,0,0.25);
-    border-radius: 8px;
-    padding: 20px 28px;
-    margin-bottom: 16px;
-    width: 100%;
-  }
-
-  .badge-icon {
-    width: 48px; height: 48px;
-    background: var(--yellow);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem;
-    flex-shrink: 0;
-  }
-
-  .badge-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--white);
-    display: block;
-  }
-
-  .badge-tag {
-    font-size: 0.8rem;
-    color: var(--cyan);
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .products-visual {
-    position: relative;
-  }
-
-  .bubbles-box {
-    background: linear-gradient(145deg, var(--mid), var(--charcoal));
-    border-radius: 16px;
-    padding: 60px 40px;
-    text-align: center;
-    border: 1px solid rgba(0,212,255,0.15);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .bubbles-box .big-text {
-    font-family: 'Anton', sans-serif;
-    font-size: 5rem;
-    line-height: 1;
-    color: var(--yellow);
-    display: block;
-  }
-
-  .bubbles-box .sub-text {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    margin-top: 8px;
-    display: block;
-  }
-
-  /* floating bubble animations */
-  .bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, rgba(0,212,255,0.35), rgba(0,212,255,0.05));
-    border: 1px solid rgba(0,212,255,0.2);
-    animation: float 5s ease-in-out infinite;
-  }
-
-  .bubble:nth-child(1) { width: 60px; height: 60px; top: 10%; left: 8%; animation-delay: 0s; }
-  .bubble:nth-child(2) { width: 35px; height: 35px; top: 25%; right: 10%; animation-delay: 1.2s; }
-  .bubble:nth-child(3) { width: 80px; height: 80px; bottom: 15%; left: 15%; animation-delay: 0.7s; }
-  .bubble:nth-child(4) { width: 25px; height: 25px; bottom: 30%; right: 20%; animation-delay: 2s; }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-14px); }
-  }
-
-  /* ── WHY US ── */
-  #why { background: var(--charcoal); }
-
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 32px;
-    margin-top: 64px;
-  }
-
-  .why-card {
-    padding: 36px 28px;
-    background: var(--mid);
-    border-radius: 8px;
-    border-bottom: 3px solid transparent;
-    transition: border-color 0.25s;
-  }
-
-  .why-card:hover { border-color: var(--yellow); }
-
-  .why-num {
-    font-family: 'Anton', sans-serif;
-    font-size: 3.5rem;
-    color: rgba(255,229,0,0.15);
-    line-height: 1;
-    margin-bottom: -8px;
-  }
-
-  .why-icon { font-size: 1.8rem; margin-bottom: 14px; }
-
-  .why-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-  }
-
-  .why-desc {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.65;
-  }
-
-  /* ── CONTACT / CTA ── */
-  #contact {
-    background: linear-gradient(135deg, var(--navy) 0%, #0d1535 100%);
-    position: relative;
-    overflow: hidden;
-  }
-
-  #contact::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      -55deg,
-      transparent 0, transparent 30px,
-      rgba(255,229,0,0.02) 30px, rgba(255,229,0,0.02) 31px
-    );
-  }
-
-  .contact-inner {
-    position: relative; z-index: 2;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-
-  .contact-left .section-title { margin-bottom: 24px; }
-
-  .contact-left p {
-    font-size: 1.05rem;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.7;
-    margin-bottom: 36px;
-  }
-
-  .contact-detail {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 18px;
-  }
-
-  .contact-icon {
-    width: 42px; height: 42px;
-    background: var(--yellow);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    color: var(--navy);
-  }
-
-  .contact-detail span {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.75);
-  }
-
-  .contact-form {
-    background: var(--mid);
-    border-radius: 12px;
-    padding: 40px 36px;
-    border: 1px solid rgba(255,255,255,0.07);
-  }
-
-  .form-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 28px;
-    color: var(--yellow);
-  }
-
-  .form-group { margin-bottom: 18px; }
-
-  .form-group label {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 7px;
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    background: var(--charcoal);
-    border: 1.5px solid rgba(255,255,255,0.1);
-    border-radius: 6px;
-    padding: 12px 16px;
-    color: var(--white);
-    font-family: 'Barlow', sans-serif;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
-    appearance: none;
-  }
-
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: var(--yellow);
-  }
-
-  .form-group select option { background: var(--charcoal); }
-
-  .form-group textarea { resize: vertical; min-height: 90px; }
-
-  .btn-submit {
-    width: 100%;
-    background: var(--yellow);
-    color: var(--navy);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .btn-submit:hover { background: var(--cyan); transform: translateY(-2px); }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--charcoal);
-    border-top: 3px solid var(--yellow);
-    padding: 40px 48px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .footer-logo {
-    font-family: 'Anton', sans-serif;
-    font-size: 1.4rem;
-    color: var(--white);
-  }
-
-  .footer-logo span { color: var(--yellow); }
-
-  footer p {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.35);
-  }
-
-  .footer-links { display: flex; gap: 24px; }
-  .footer-links a {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.45);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-links a:hover { color: var(--yellow); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 14px 24px; }
-    .nav-links { display: none; }
-    section { padding: 72px 24px; }
-    .hero { padding: 100px 24px 100px; }
-    .hero h1 { font-size: clamp(3rem, 12vw, 5rem); }
-    .hero-slash { display: none; }
-    .products-layout { grid-template-columns: 1fr; gap: 40px; }
-    .contact-inner { grid-template-columns: 1fr; gap: 48px; }
-    footer { flex-direction: column; align-items: flex-start; }
-    .stats-bar { display: grid; grid-template-columns: 1fr 1fr; }
-    .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:       #060810;
+  --ink-mid:   #0B0E1F;
+  --ink-lift:  #101428;
+  --gold-hi:   #E8C96D;
+  --gold-lo:   #B8924A;
+  --gold-grad: linear-gradient(135deg, #E8C96D 0%, #B8924A 100%);
+  --gold-dim:  rgba(232,201,109,0.12);
+  --ice:       #8EC8E8;
+  --ice-dim:   rgba(142,200,232,0.08);
+  --white:     #F4F6FF;
+  --muted:     rgba(244,246,255,0.42);
+  --faint:     rgba(244,246,255,0.1);
+  --rule:      rgba(232,201,109,0.12);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+/* ── GRAIN ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 999;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 60px;
+  background: rgba(6,8,16,0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.nav-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.nav-logo em {
+  font-style: normal;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--gold-grad) !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+  padding: 9px 22px !important;
+  border-radius: 2px;
+  letter-spacing: 2px !important;
+  font-weight: 900 !important;
+  transition: opacity 0.2s, transform 0.15s !important;
+}
+.nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 140px 60px 120px;
+  background:
+    radial-gradient(ellipse 90% 70% at 65% 40%, rgba(184,146,74,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 80% at 15% 85%, rgba(142,200,232,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 50% at 90% 10%, rgba(232,201,109,0.04) 0%, transparent 45%),
+    linear-gradient(170deg, #060810 0%, #0B0E1F 55%, #080B18 100%);
+}
+
+/* fine diagonal grid */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(232,201,109,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,201,109,0.035) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+  pointer-events: none;
+}
+
+/* sweep shimmer */
+.hero-shimmer {
+  position: absolute; top: -50%; left: -30%;
+  width: 35%; height: 200%;
+  background: linear-gradient(105deg, transparent 38%, rgba(232,201,109,0.035) 50%, transparent 62%);
+  animation: shimmer 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes shimmer {
+  0%   { transform: translateX(0); opacity: 0; }
+  10%  { opacity: 1; }
+  60%  { transform: translateX(380%); opacity: 1; }
+  70%  { opacity: 0; }
+  100% { transform: translateX(380%); opacity: 0; }
+}
+
+.hero-content { position: relative; z-index: 2; max-width: 680px; }
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--ice);
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 28px; height: 1px;
+  background: var(--ice);
+  opacity: 0.5;
+}
+
+.hero h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(4rem, 9vw, 7.5rem);
+  line-height: 0.9;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+
+.hero h1 .g {
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-rule {
+  width: 48px; height: 1px;
+  background: var(--gold-grad);
+  margin-bottom: 24px;
+  opacity: 0.6;
+}
+
+.hero-sub {
+  font-size: 1.02rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  max-width: 420px;
+  line-height: 1.85;
+  margin-bottom: 48px;
+  letter-spacing: 0.2px;
+}
+
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.btn-primary {
+  background: var(--gold-grad);
+  color: var(--ink);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 15px 38px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.2s, transform 0.15s;
+  box-shadow: 0 4px 24px rgba(184,146,74,0.22);
+}
+.btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 14px 38px;
+  border: 1px solid rgba(244,246,255,0.15);
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.25s, color 0.25s;
+}
+.btn-ghost:hover { border-color: rgba(232,201,109,0.35); color: var(--gold-hi); }
+
+/* stat bar */
+.stats-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex;
+  background: rgba(6,8,16,0.6);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--rule);
+  z-index: 5;
+}
+.stat {
+  flex: 1;
+  padding: 22px 24px;
+  text-align: center;
+  border-right: 1px solid rgba(244,246,255,0.04);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+}
+
+/* ── MARQUEE ── */
+.marquee-wrap {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 13px 0;
+  background: var(--ink-mid);
+}
+.marquee-track {
+  display: inline-block;
+  animation: scroll 30s linear infinite;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.marquee-track .sep {
+  margin: 0 32px;
+  color: var(--gold-lo);
+  opacity: 0.5;
+}
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── SHARED SECTION STYLE ── */
+section { padding: 120px 60px; position: relative; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--ice);
+  opacity: 0.65;
+  margin-bottom: 16px;
+}
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 22px; height: 1px;
+  background: var(--ice);
+  opacity: 0.5;
+}
+
+.sec-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+.sec-title .g {
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sec-rule {
+  width: 36px; height: 1px;
+  background: var(--gold-grad);
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+/* ── SERVICES ── */
+#services {
+  background:
+    radial-gradient(ellipse 60% 50% at 100% 0%, rgba(142,200,232,0.04) 0%, transparent 55%),
+    linear-gradient(180deg, #0B0E1F 0%, #080B18 100%);
+}
+
+.services-intro { max-width: 520px; margin-bottom: 72px; }
+.services-intro p {
+  font-size: 0.98rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--rule);
+}
+
+.service-card {
+  background: var(--ink-mid);
+  padding: 52px 44px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.service-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% -5%, rgba(232,201,109,0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.service-card:hover { background: var(--ink-lift); }
+.service-card:hover::after { opacity: 1; }
+
+/* hairline top accent on hover */
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gold-grad);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+.service-card:hover::before { transform: scaleX(1); }
+
+/* SVG icon */
+.svc-icon {
+  width: 32px; height: 32px;
+  margin-bottom: 28px;
+  opacity: 0.6;
+}
+
+.service-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 14px;
+}
+
+.service-desc {
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 36px;
+}
+
+.service-price {
+  font-family: 'Anton', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: -1px;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+.service-price sub {
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--muted);
+  -webkit-text-fill-color: var(--muted);
+  vertical-align: middle;
+  margin-left: 6px;
+  text-transform: uppercase;
+}
+
+/* ── LUXURY ── */
+.luxury-bar {
+  background:
+    radial-gradient(ellipse 70% 90% at 50% 50%, rgba(184,146,74,0.055) 0%, transparent 65%),
+    linear-gradient(180deg, #080B18 0%, #060810 100%);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 100px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.luxury-bar::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(232,201,109,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,201,109,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 75%);
+}
+
+.luxury-inner { max-width: 800px; margin: 0 auto; position: relative; }
+
+.luxury-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--ice);
+  opacity: 0.65;
+  margin-bottom: 20px;
+}
+.luxury-eyebrow::before, .luxury-eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 22px; height: 1px;
+  background: var(--ice);
+  opacity: 0.4;
+}
+
+.luxury-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+.luxury-title .g {
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.luxury-rule {
+  width: 36px; height: 1px;
+  background: var(--gold-grad);
+  margin: 18px auto 24px;
+  opacity: 0.45;
+}
+
+.luxury-sub {
+  font-size: 0.96rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.9;
+  max-width: 560px;
+  margin: 0 auto 60px;
+}
+
+.luxury-cars {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 1px;
+  max-width: 560px;
+  margin: 0 auto;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--rule);
+}
+
+.luxury-car {
+  flex: 1;
+  background: var(--ink-mid);
+  padding: 36px 32px;
+  transition: background 0.3s;
+}
+.luxury-car:hover { background: var(--ink-lift); }
+
+.luxury-car-name {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.luxury-car-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── PRODUCTS ── */
+#products {
+  background:
+    radial-gradient(ellipse 55% 70% at 5% 50%, rgba(232,201,109,0.04) 0%, transparent 55%),
+    linear-gradient(180deg, #060810 0%, #0B0E1F 100%);
+}
+
+.products-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 56px;
+}
+
+.products-text p {
+  font-size: 0.96rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 40px;
+}
+
+.product-badge {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 18px 22px;
+  margin-bottom: 8px;
+  background: var(--ink-mid);
+  transition: border-color 0.25s, background 0.25s;
+  cursor: default;
+}
+.product-badge:hover {
+  border-color: rgba(232,201,109,0.22);
+  background: var(--ink-lift);
+}
+
+.badge-pip {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold-grad);
+  flex-shrink: 0;
+}
+
+.badge-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  display: block;
+}
+.badge-tag {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ice);
+  opacity: 0.6;
+}
+
+.products-visual {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--ink-mid);
+  padding: 64px 48px;
+  text-align: center;
+  position: relative;
+}
+.products-visual::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(232,201,109,0.06) 0%, transparent 60%);
+}
+.pv-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 20px;
+  position: relative;
+}
+.pv-big {
+  font-family: 'Anton', sans-serif;
+  font-size: 5rem;
+  line-height: 0.9;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  position: relative;
+}
+.pv-sub {
+  font-size: 0.7rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 18px;
+  position: relative;
+}
+
+/* floating rings */
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(142,200,232,0.1);
+  animation: pulse 6s ease-in-out infinite;
+}
+.ring:nth-child(1) { width: 80px; height: 80px; top: 8%; left: 6%; animation-delay: 0s; }
+.ring:nth-child(2) { width: 40px; height: 40px; top: 20%; right: 8%; animation-delay: 1.8s; }
+.ring:nth-child(3) { width: 56px; height: 56px; bottom: 12%; left: 12%; animation-delay: 1s; }
+.ring:nth-child(4) { width: 24px; height: 24px; bottom: 25%; right: 14%; animation-delay: 2.5s; }
+@keyframes pulse {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-14px); opacity: 1; }
+}
+
+/* ── WHY ── */
+#why {
+  background:
+    radial-gradient(ellipse 55% 50% at 90% 100%, rgba(142,200,232,0.04) 0%, transparent 55%),
+    linear-gradient(180deg, #0B0E1F 0%, #080B18 100%);
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 64px;
+}
+
+.why-card {
+  padding: 44px 34px;
+  background: var(--ink-mid);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.why-card:hover { background: var(--ink-lift); }
+
+.why-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gold-grad);
+  transform: scaleX(0);
+  transition: transform 0.4s;
+  transform-origin: left;
+}
+.why-card:hover::after { transform: scaleX(1); }
+
+.why-index {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.why-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.why-desc {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+/* ── CONTACT ── */
+#contact {
+  background:
+    radial-gradient(ellipse 65% 55% at 25% 50%, rgba(184,146,74,0.045) 0%, transparent 55%),
+    linear-gradient(170deg, #060810 0%, #0A0D1E 100%);
+  position: relative;
+}
+
+#contact::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(232,201,109,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,201,109,0.02) 1px, transparent 1px);
+  background-size: 72px 72px;
+  pointer-events: none;
+}
+
+.contact-inner {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.contact-left p {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 48px;
+  margin-top: 20px;
+}
+
+.contact-detail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(244,246,255,0.04);
+}
+.contact-detail:last-of-type { border-bottom: none; }
+
+.contact-pip {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gold-grad);
+  flex-shrink: 0;
+}
+
+.contact-detail span {
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: rgba(244,246,255,0.65);
+  letter-spacing: 0.3px;
+}
+
+.contact-form {
+  background: var(--ink-mid);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 44px 40px;
+}
+
+.form-heading {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 32px;
+  display: block;
+}
+
+.form-group { margin-bottom: 14px; }
+
+.form-group label {
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: rgba(244,246,255,0.03);
+  border: 1px solid rgba(244,246,255,0.07);
+  border-radius: 2px;
+  padding: 11px 14px;
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: rgba(232,201,109,0.3);
+  background: rgba(232,201,109,0.025);
+}
+
+.form-group select option { background: #0B0E1F; }
+.form-group textarea { resize: vertical; min-height: 88px; }
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+  cursor: pointer;
+}
+
+.btn-submit {
+  width: 100%;
+  background: var(--gold-grad);
+  color: var(--ink);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 15px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: opacity 0.2s, transform 0.15s;
+  box-shadow: 0 4px 20px rgba(184,146,74,0.2);
+}
+.btn-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  border-top: 1px solid var(--rule);
+  padding: 32px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.footer-logo em {
+  font-style: normal;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+footer small {
+  font-size: 0.68rem;
+  color: rgba(244,246,255,0.2);
+  letter-spacing: 1px;
+}
+
+.footer-links { display: flex; gap: 28px; }
+.footer-links a {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(244,246,255,0.25);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold-hi); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  section { padding: 80px 24px; }
+  .hero { padding: 110px 24px 110px; }
+  .hero h1 { font-size: clamp(3.2rem, 12vw, 5rem); }
+  .products-layout { grid-template-columns: 1fr; gap: 40px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+  .luxury-bar { padding: 72px 24px; }
+  footer { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+  .stats-bar { flex-wrap: wrap; }
+  .stat { flex: 0 0 50%; border-bottom: 1px solid rgba(244,246,255,0.04); }
+}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo"><span>K&N</span> Premium Detailing</div>
+  <div class="nav-logo"><em>K&N</em> Premium Detailing</div>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#products">Products</a></li>
@@ -701,29 +984,29 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-slash"></div>
+  <div class="hero-shimmer"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">✦ Professional Auto Detailing</p>
-    <h1>Make Your<br><span class="accent">Ride</span><br>Shine.</h1>
-    <p class="hero-sub">K&N Premium Detailing delivers showroom-quality results using professional-grade products. Your car deserves the best — we deliver nothing less.</p>
+    <p class="hero-eyebrow">Professional Auto Detailing</p>
+    <h1>Make Your<br><span class="g">Ride</span><br>Shine<span style="letter-spacing:-6px">.</span></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">K&amp;N Premium Detailing delivers showroom-quality results using professional-grade products. Your car deserves the best — we deliver nothing less.</p>
     <div class="hero-btns">
       <a href="#contact" class="btn-primary">Book a Detail</a>
-      <a href="#services" class="btn-outline">View Services</a>
+      <a href="#services" class="btn-ghost">View Services</a>
     </div>
   </div>
-
   <div class="stats-bar">
     <div class="stat">
-      <span class="stat-num">Pro</span>
-      <span class="stat-label">Grade Products</span>
+      <span class="stat-num">Pro Grade</span>
+      <span class="stat-label">Products</span>
     </div>
     <div class="stat">
-      <span class="stat-num">💲</span>
-      <span class="stat-label">Affordable Services</span>
+      <span class="stat-num">Affordable</span>
+      <span class="stat-label">Services</span>
     </div>
     <div class="stat">
-      <span class="stat-num">✅</span>
-      <span class="stat-label">Guaranteed Satisfaction</span>
+      <span class="stat-num">Guaranteed</span>
+      <span class="stat-label">Satisfaction</span>
     </div>
   </div>
 </section>
@@ -731,66 +1014,96 @@
 <!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
-    <span>EXTERIOR DETAIL</span><span class="dot">◆</span>
-    <span>INTERIOR DEEP CLEAN</span><span class="dot">◆</span>
-    <span>ENGINE BAY CLEAN</span><span class="dot">◆</span>
-    <span>EXTERIOR DETAIL</span><span class="dot">◆</span>
-    <span>INTERIOR DEEP CLEAN</span><span class="dot">◆</span>
-    <span>ENGINE BAY CLEAN</span><span class="dot">◆</span>
+    <span>Exterior Detail</span><span class="sep">◆</span>
+    <span>Interior Deep Clean</span><span class="sep">◆</span>
+    <span>Engine Bay Clean</span><span class="sep">◆</span>
+    <span>Exterior Detail</span><span class="sep">◆</span>
+    <span>Interior Deep Clean</span><span class="sep">◆</span>
+    <span>Engine Bay Clean</span><span class="sep">◆</span>
   </div>
 </div>
 
 <!-- SERVICES -->
 <section id="services">
   <div class="services-intro">
-    <p class="section-eyebrow">What We Offer</p>
-    <h2 class="section-title">Our <span class="y">Services</span></h2>
+    <p class="eyebrow">What We Offer</p>
+    <h2 class="sec-title">Our <span class="g">Services</span></h2>
+    <div class="sec-rule"></div>
     <p>From a quick refresh to a full concours-level detail, we have packages for every vehicle and every budget. All services include a hand wash and tire dressing.</p>
   </div>
 
   <div class="services-grid">
     <div class="service-card">
-      <div class="service-icon">🚿</div>
-      <div class="service-name">Express Wash & Shine</div>
+      <svg class="svc-icon" viewBox="0 0 32 32" fill="none" stroke="#E8C96D" stroke-width="1.2" stroke-linecap="round">
+        <path d="M4 22 Q8 10 16 10 Q24 10 28 22"/>
+        <path d="M2 26 L30 26"/>
+        <path d="M10 26 L8 30 M22 26 L24 30"/>
+        <path d="M12 18 Q16 14 20 18"/>
+      </svg>
+      <div class="service-name">Express Wash &amp; Shine</div>
       <p class="service-desc">Hand wash, wheel clean, window wipe, and tire dressing. A clean car in under an hour.</p>
-      <div class="service-price">$30 <small>starting at</small></div>
+      <div class="service-price">$60 <sub>starting at</sub></div>
     </div>
     <div class="service-card">
-      <div class="service-icon">✨</div>
-      <div class="service-name">Premium Interior & Exterior Detail</div>
-      <p class="service-desc">More care taken on every surface — deep vacuum, leather conditioning, dashboard polish, exterior hand wash, wheel detail, and window clean. <strong style="color:var(--yellow);">45–60 minutes of dedicated attention.</strong></p>
-      <div class="service-price">$60 <small>starting at</small></div>
+      <svg class="svc-icon" viewBox="0 0 32 32" fill="none" stroke="#E8C96D" stroke-width="1.2" stroke-linecap="round">
+        <rect x="4" y="8" width="24" height="16" rx="2"/>
+        <path d="M4 14 L28 14"/>
+        <path d="M10 11 L10 8 M22 11 L22 8"/>
+        <path d="M9 19 L14 19 M18 19 L23 19"/>
+        <circle cx="16" cy="21" r="1.5"/>
+      </svg>
+      <div class="service-name">Premium Interior &amp; Exterior Detail</div>
+      <p class="service-desc">More care taken on every surface — deep vacuum, carpet clean, leather conditioning, dashboard polish, exterior hand wash, wheel detail, and window clean. <span style="color:var(--gold-hi); font-style:italic;">45–60 minutes of dedicated attention.</span></p>
+      <div class="service-price">$100 <sub>starting at</sub></div>
     </div>
   </div>
 </section>
 
+<!-- LUXURY -->
+<div class="luxury-bar">
+  <div class="luxury-inner">
+    <p class="luxury-eyebrow">A Standard of Excellence</p>
+    <h3 class="luxury-title">Entrusted With The <span class="g">World's Finest</span> Vehicles</h3>
+    <div class="luxury-rule"></div>
+    <p class="luxury-sub">From everyday drivers to the most coveted automobiles on the road — our work speaks for itself. K&amp;N has been trusted to care for some of the most exclusive vehicles in existence, delivering the same meticulous standard every single time.</p>
+    <div class="luxury-cars">
+      <div class="luxury-car">
+        <div class="luxury-car-name">Rolls-Royce</div>
+        <div class="luxury-car-tag">Detailed to Perfection</div>
+      </div>
+      <div class="luxury-car">
+        <div class="luxury-car-name">Maybach</div>
+        <div class="luxury-car-tag">White-Glove Care</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- PRODUCTS -->
 <section id="products">
-  <p class="section-eyebrow">Pro-Grade Chemistry</p>
-  <h2 class="section-title">Products We <span class="y">Trust</span></h2>
+  <p class="eyebrow">Pro-Grade Chemistry</p>
+  <h2 class="sec-title">Products We <span class="g">Trust</span></h2>
+  <div class="sec-rule"></div>
 
   <div class="products-layout">
     <div class="products-text">
-      <p>We don't cut corners on chemistry. Every product that touches your vehicle is carefully chosen for safety, performance, and finish quality. We use only professional detailing brands trusted by top shops worldwide.</p>
-
+      <p>We don't cut corners on chemistry. Every product that touches your vehicle is carefully chosen for safety, performance, and finish quality — professional detailing brands trusted by top shops worldwide.</p>
       <div class="product-badge">
-        <div class="badge-icon">🧪</div>
+        <div class="badge-pip"></div>
         <div>
-          <span class="badge-name">Chemical Guys</span>
-          <span class="badge-tag">Primary Detailing Brand</span>
+          <span class="badge-name">Pro Grade Products</span>
+          <span class="badge-tag">Primary Detailing Line</span>
         </div>
       </div>
-
       <div class="product-badge">
-        <div class="badge-icon">🧽</div>
+        <div class="badge-pip"></div>
         <div>
           <span class="badge-name">Professional Microfibers</span>
           <span class="badge-tag">Scratch-Free Finish</span>
         </div>
       </div>
-
       <div class="product-badge">
-        <div class="badge-icon">🛡️</div>
+        <div class="badge-pip"></div>
         <div>
           <span class="badge-name">Ceramic Pro-Grade Sealants</span>
           <span class="badge-tag">Long-Term Protection</span>
@@ -799,45 +1112,41 @@
     </div>
 
     <div class="products-visual">
-      <div class="bubbles-box">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <span class="big-text">PRO<br>GRADE</span>
-        <span class="sub-text">Only the best on your car</span>
-      </div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <span class="pv-label">Our Standard</span>
+      <span class="pv-big">PRO<br>GRADE</span>
+      <span class="pv-sub">Only the best on your car</span>
     </div>
   </div>
 </section>
 
-<!-- WHY US -->
+<!-- WHY -->
 <section id="why">
-  <p class="section-eyebrow">Why K&N</p>
-  <h2 class="section-title">The <span class="y">K&N</span> Difference</h2>
+  <p class="eyebrow">Why K&amp;N</p>
+  <h2 class="sec-title">The <span class="g">K&amp;N</span> Difference</h2>
+  <div class="sec-rule"></div>
 
   <div class="why-grid">
     <div class="why-card">
-      <div class="why-num">01</div>
-      <div class="why-icon">🏆</div>
-      <div class="why-title">Premium Products Only</div>
-      <p class="why-desc">We use Chemical Guys and other pro-grade brands — never cheap alternatives that can harm your paint or interior.</p>
+      <span class="why-index">01 — Products</span>
+      <div class="why-title">Premium Grade Only</div>
+      <p class="why-desc">We use only pro-grade products — never cheap alternatives that can harm your paint or interior.</p>
     </div>
     <div class="why-card">
-      <div class="why-num">02</div>
-      <div class="why-icon">🤝</div>
+      <span class="why-index">02 — Promise</span>
       <div class="why-title">Satisfaction Guaranteed</div>
       <p class="why-desc">Not happy? We come back and make it right. No questions, no hassle. Your satisfaction is our reputation.</p>
     </div>
     <div class="why-card">
-      <div class="why-num">03</div>
-      <div class="why-icon">⚡</div>
-      <div class="why-title">Fast & Reliable</div>
+      <span class="why-index">03 — Reliability</span>
+      <div class="why-title">Fast &amp; On Schedule</div>
       <p class="why-desc">We respect your time. We show up on schedule, work efficiently, and deliver on our promises every single time.</p>
     </div>
     <div class="why-card">
-      <div class="why-num">04</div>
-      <div class="why-icon">🔍</div>
+      <span class="why-index">04 — Craft</span>
       <div class="why-title">Detail-Obsessed</div>
       <p class="why-desc">We don't just clean cars — we obsess over every panel, trim piece, and crevice until it's perfect.</p>
     </div>
@@ -848,38 +1157,46 @@
 <section id="contact">
   <div class="contact-inner">
     <div class="contact-left">
-      <p class="section-eyebrow">Get In Touch</p>
-      <h2 class="section-title">Book Your <span class="y">Detail</span></h2>
+      <p class="eyebrow">Get In Touch</p>
+      <h2 class="sec-title">Book Your <span class="g">Detail</span></h2>
+      <div class="sec-rule"></div>
       <p>Ready to bring your car back to life? Fill out the form and we'll get back to you within a few hours to confirm your booking and answer any questions.</p>
-
       <div class="contact-detail">
-        <div class="contact-icon">📞</div>
+        <div class="contact-pip"></div>
         <span>(908) 304-1000</span>
       </div>
       <div class="contact-detail">
-        <div class="contact-icon">📞</div>
+        <div class="contact-pip"></div>
         <span>(848) 297-4620</span>
       </div>
       <div class="contact-detail">
-        <div class="contact-icon">📧</div>
+        <div class="contact-pip"></div>
         <span>knpremiumdetailing10@gmail.com</span>
       </div>
       <div class="contact-detail">
-        <div class="contact-icon">📍</div>
-        <span>Mobile Service — We Come to You!</span>
+        <div class="contact-pip"></div>
+        <span>Mobile Service — We Come to You</span>
       </div>
     </div>
 
     <div class="contact-form">
-      <div class="form-title">Request a Quote</div>
+      <span class="form-heading">Request a Quote</span>
       <form action="https://formspree.io/f/xeewrggj" method="POST" id="quoteForm">
         <div class="form-group">
           <label>Your Name</label>
           <input type="text" name="name" placeholder="John Smith" required>
         </div>
         <div class="form-group">
-          <label>Phone / Email</label>
+          <label>Email</label>
+          <input type="email" name="email" placeholder="you@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
           <input type="text" name="contact" placeholder="(555) 000-0000" required>
+        </div>
+        <div class="form-group">
+          <label>Preferred Date</label>
+          <input type="date" name="date" required>
         </div>
         <div class="form-group">
           <label>Vehicle</label>
@@ -889,55 +1206,55 @@
           <label>Service Needed</label>
           <select name="service" required>
             <option value="">Select a service...</option>
-            <option>Express Wash & Shine — $30+</option>
-            <option>Premium Interior & Exterior Detail — $60+</option>
+            <option>Express Wash &amp; Shine — $60+</option>
+            <option>Premium Interior &amp; Exterior Detail — $100+</option>
+            <option>Waxing — Price on Request</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Notes (optional)</label>
-          <textarea name="notes" placeholder="Any specific concerns or requests?"></textarea>
+          <label>Describe What You Want Done &nbsp;<span style="font-weight:300; letter-spacing:0.5px; text-transform:none; font-size:0.6rem; color:rgba(244,246,255,0.28);">(might raise price depending on request)</span></label>
+          <textarea name="notes" placeholder="e.g. Focus on the seats, clean the rims, remove stains from carpet..."></textarea>
         </div>
         <input type="hidden" name="_subject" value="New Quote Request — K&N Premium Detailing">
-        <input type="hidden" name="_next" value="">
-        <button type="submit" class="btn-submit">Send My Request →</button>
-        <p id="form-success" style="display:none; margin-top:14px; color:var(--yellow); font-weight:700; text-align:center; letter-spacing:1px;">✅ Request sent! We'll be in touch soon.</p>
+        <button type="submit" class="btn-submit">Send My Request</button>
+        <p id="form-success" style="display:none; margin-top:14px; color:var(--gold-hi); font-size:0.8rem; font-weight:600; text-align:center; letter-spacing:2px; text-transform:uppercase;">Request Received — We'll Be In Touch.</p>
       </form>
     </div>
+  </div>
 
-    <script>
-      const form = document.getElementById('quoteForm');
-      form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const btn = form.querySelector('.btn-submit');
-        btn.textContent = 'Sending...';
-        btn.disabled = true;
-        try {
-          const res = await fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json' }
-          });
-          if (res.ok) {
-            form.reset();
-            btn.style.display = 'none';
-            document.getElementById('form-success').style.display = 'block';
-          } else {
-            btn.textContent = 'Error — Try Again';
-            btn.disabled = false;
-          }
-        } catch {
+  <script>
+    const form = document.getElementById('quoteForm');
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('.btn-submit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          btn.style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+        } else {
           btn.textContent = 'Error — Try Again';
           btn.disabled = false;
         }
-      });
-    </script>
-  </div>
+      } catch {
+        btn.textContent = 'Error — Try Again';
+        btn.disabled = false;
+      }
+    });
+  </script>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><span>K&N</span> Premium Detailing</div>
-  <p>© 2024 K&N Premium Detailing. All rights reserved.</p>
+  <div class="footer-logo"><em>K&N</em> Premium Detailing</div>
+  <small>© 2024 K&amp;N Premium Detailing. All rights reserved.</small>
   <div class="footer-links">
     <a href="#services">Services</a>
     <a href="#products">Products</a>
