@@ -14,12 +14,12 @@
   --ink-lift:  #101428;
   --gold-hi:   #E8C96D;
   --gold-lo:   #B8924A;
-  --gold-grad: linear-gradient(135deg, #E8C96D 0%, #B8924A 100%);
+  --gold-grad: linear-gradient(135deg, #F5DC94 0%, #E8C96D 100%);
   --gold-dim:  rgba(232,201,109,0.12);
   --ice:       #8EC8E8;
   --ice-dim:   rgba(142,200,232,0.08);
   --white:     #F4F6FF;
-  --muted:     rgba(244,246,255,0.42);
+  --muted:     rgba(244,246,255,0.58);
   --faint:     rgba(244,246,255,0.1);
   --rule:      rgba(232,201,109,0.12);
 }
@@ -74,7 +74,7 @@ nav {
 .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
 
 .nav-links a {
-  color: var(--muted);
+  color: var(--white);
   text-decoration: none;
   font-weight: 600;
   font-size: 0.72rem;
@@ -82,7 +82,7 @@ nav {
   text-transform: uppercase;
   transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--white); }
+.nav-links a:hover { color: var(--gold-hi); }
 
 .nav-cta {
   background: var(--gold-grad) !important;
@@ -151,17 +151,17 @@ nav {
 }
 
 .hero-badge-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
   width: 100%;
-  max-width: 320px;
+  max-width: 400px;
 }
 
 .hero-badge {
   border: 1px solid var(--rule);
   border-radius: 4px;
-  padding: 22px 28px;
+  padding: 18px 20px;
   background: rgba(244,246,255,0.02);
   backdrop-filter: blur(12px);
   transition: border-color 0.25s, background 0.25s;
@@ -186,19 +186,19 @@ nav {
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--white);
   margin-bottom: 6px;
 }
 .hb-value {
   display: block;
   font-family: 'Anton', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   letter-spacing: 0;
   background: var(--gold-grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  line-height: 1;
+  line-height: 1.15;
 }
 
 /* stats bar spans full grid width */
@@ -221,8 +221,7 @@ nav {
   font-weight: 600;
   letter-spacing: 5px;
   text-transform: uppercase;
-  color: var(--ice);
-  opacity: 0.7;
+  color: var(--white);
   margin-bottom: 24px;
 }
 .hero-eyebrow::before {
@@ -259,9 +258,9 @@ nav {
 
 .hero-sub {
   font-size: 1.02rem;
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
-  color: var(--muted);
+  color: var(--white);
   max-width: 420px;
   line-height: 1.85;
   margin-bottom: 48px;
@@ -341,7 +340,7 @@ nav {
   font-weight: 400;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--white);
   display: block;
 }
 
@@ -363,7 +362,7 @@ nav {
   font-weight: 700;
   letter-spacing: 5px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--white);
 }
 .marquee-track .sep {
   margin: 0 32px;
@@ -382,8 +381,7 @@ section { padding: 120px 60px; position: relative; }
   font-weight: 600;
   letter-spacing: 5px;
   text-transform: uppercase;
-  color: var(--ice);
-  opacity: 0.65;
+  color: var(--white);
   margin-bottom: 16px;
 }
 .eyebrow::before {
@@ -426,8 +424,8 @@ section { padding: 120px 60px; position: relative; }
 .services-intro { max-width: 520px; margin-bottom: 72px; }
 .services-intro p {
   font-size: 0.98rem;
-  font-weight: 300;
-  color: var(--muted);
+  font-weight: 400;
+  color: var(--white);
   line-height: 1.9;
 }
 
@@ -492,8 +490,8 @@ section { padding: 120px 60px; position: relative; }
 
 .service-desc {
   font-size: 0.88rem;
-  font-weight: 300;
-  color: var(--muted);
+  font-weight: 400;
+  color: var(--white);
   line-height: 1.85;
   margin-bottom: 36px;
 }
@@ -513,11 +511,115 @@ section { padding: 120px 60px; position: relative; }
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 2px;
-  color: var(--muted);
-  -webkit-text-fill-color: var(--muted);
+  color: var(--white);
+  -webkit-text-fill-color: var(--white);
   vertical-align: middle;
   margin-left: 6px;
   text-transform: uppercase;
+}
+
+/* ── SOCIALS ── */
+#socials {
+  background:
+    radial-gradient(ellipse 60% 55% at 85% 30%, rgba(232,201,109,0.045) 0%, transparent 58%),
+    linear-gradient(180deg, #080B18 0%, #060810 100%);
+}
+
+.socials-intro {
+  font-size: 0.96rem;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.9;
+  max-width: 460px;
+  margin-bottom: 56px;
+}
+
+.socials-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.social-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: var(--ink-mid);
+  padding: 44px 34px 38px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.social-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gold-grad);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+.social-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% -5%, rgba(232,201,109,0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+.social-card:hover { background: var(--ink-lift); }
+.social-card:hover::before { transform: scaleX(1); }
+.social-card:hover::after { opacity: 1; }
+
+.social-icon {
+  width: 28px; height: 28px;
+  color: var(--gold-hi);
+  opacity: 0.65;
+  margin-bottom: 26px;
+  transition: opacity 0.3s;
+  position: relative;
+}
+.social-card:hover .social-icon { opacity: 1; }
+
+.social-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.social-handle {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: 0.3px;
+  line-height: 1.6;
+  margin-bottom: 26px;
+  word-break: break-word;
+  position: relative;
+}
+
+.social-go {
+  margin-top: auto;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
 }
 
 /* ── LUXURY ── */
@@ -552,8 +654,7 @@ section { padding: 120px 60px; position: relative; }
   font-weight: 600;
   letter-spacing: 5px;
   text-transform: uppercase;
-  color: var(--ice);
-  opacity: 0.65;
+  color: var(--white);
   margin-bottom: 20px;
 }
 .luxury-eyebrow::before, .luxury-eyebrow::after {
@@ -588,9 +689,9 @@ section { padding: 120px 60px; position: relative; }
 
 .luxury-sub {
   font-size: 0.96rem;
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
-  color: var(--muted);
+  color: var(--white);
   line-height: 1.9;
   max-width: 560px;
   margin: 0 auto 60px;
@@ -634,7 +735,7 @@ section { padding: 120px 60px; position: relative; }
   font-weight: 600;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--white);
 }
 
 /* ── PRODUCTS ── */
@@ -654,8 +755,8 @@ section { padding: 120px 60px; position: relative; }
 
 .products-text p {
   font-size: 0.96rem;
-  font-weight: 300;
-  color: var(--muted);
+  font-weight: 400;
+  color: var(--white);
   line-height: 1.9;
   margin-bottom: 40px;
 }
@@ -722,7 +823,7 @@ section { padding: 120px 60px; position: relative; }
   font-weight: 600;
   letter-spacing: 6px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--white);
   display: block;
   margin-bottom: 20px;
   position: relative;
@@ -742,7 +843,7 @@ section { padding: 120px 60px; position: relative; }
   font-size: 0.7rem;
   font-weight: 300;
   font-style: italic;
-  color: var(--muted);
+  color: var(--white);
   letter-spacing: 2px;
   text-transform: uppercase;
   display: block;
@@ -831,8 +932,8 @@ section { padding: 120px 60px; position: relative; }
 
 .why-desc {
   font-size: 0.85rem;
-  font-weight: 300;
-  color: var(--muted);
+  font-weight: 400;
+  color: var(--white);
   line-height: 1.85;
 }
 
@@ -863,8 +964,8 @@ section { padding: 120px 60px; position: relative; }
 
 .contact-left p {
   font-size: 0.95rem;
-  font-weight: 300;
-  color: var(--muted);
+  font-weight: 400;
+  color: var(--white);
   line-height: 1.9;
   margin-bottom: 48px;
   margin-top: 20px;
@@ -887,10 +988,20 @@ section { padding: 120px 60px; position: relative; }
   flex-shrink: 0;
 }
 
+.contact-detail a {
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: rgba(244,246,255,0.78);
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.contact-detail a:hover { color: var(--gold-hi); }
+
 .contact-detail span {
   font-size: 0.88rem;
-  font-weight: 300;
-  color: rgba(244,246,255,0.65);
+  font-weight: 400;
+  color: rgba(244,246,255,0.78);
   letter-spacing: 0.3px;
 }
 
@@ -923,7 +1034,7 @@ section { padding: 120px 60px; position: relative; }
   font-weight: 700;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--white);
   margin-bottom: 7px;
 }
 
@@ -990,6 +1101,20 @@ footer {
   gap: 16px;
 }
 
+.footer-brand { display: flex; flex-direction: column; gap: 6px; }
+
+.footer-est {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .footer-logo {
   font-family: 'Anton', sans-serif;
   font-size: 1.1rem;
@@ -1007,36 +1132,238 @@ footer {
 
 footer small {
   font-size: 0.68rem;
-  color: rgba(244,246,255,0.2);
+  color: var(--white);
   letter-spacing: 1px;
 }
 
-.footer-links { display: flex; gap: 28px; }
-.footer-links a {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(244,246,255,0.25);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--gold-hi); }
+
 
 /* ── RESPONSIVE ── */
+/* ── MOBILE STICKY CTA ── */
+.mobile-cta { display: none; }
+
 @media (max-width: 860px) {
-  nav { padding: 16px 24px; }
-  .nav-links { display: none; }
-  section { padding: 80px 24px; }
-  .hero { padding: 110px 24px 110px; grid-template-columns: 1fr; }
-  .hero h1 { font-size: clamp(2.4rem, 10vw, 4rem); }
-  .hero-right { padding-left: 0; padding-top: 40px; justify-content: flex-start; }
-  .products-layout { grid-template-columns: 1fr; gap: 40px; }
-  .contact-inner { grid-template-columns: 1fr; gap: 48px; }
-  .luxury-bar { padding: 72px 24px; }
-  footer { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
-  .stats-bar { flex-wrap: wrap; }
-  .stat { flex: 0 0 50%; border-bottom: 1px solid rgba(244,246,255,0.04); }
+  .mobile-cta {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 8px;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 180;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(6,8,16,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--rule);
+  }
+  .mcta-call, .mcta-book {
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 900;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 14px 10px;
+    border-radius: 2px;
+    min-height: 46px;
+  }
+  .mcta-call {
+    color: var(--white);
+    border: 1px solid rgba(244,246,255,0.18);
+  }
+  .mcta-book {
+    color: var(--ink);
+    background: var(--gold-grad);
+  }
+  /* keep the bar from covering the footer */
+  footer { padding-bottom: 92px; }
+}
+
+/* ── TOUCH DEVICE TUNING ── */
+@media (hover: none) {
+  /* hover styles never un-stick on touch, so neutralise them */
+  .service-card:hover, .why-card:hover, .social-card:hover,
+  .hero-badge:hover, .product-badge:hover, .luxury-car:hover { background: var(--ink-mid); }
+  .service-card:hover::before, .why-card:hover::after,
+  .social-card:hover::before, .hero-badge:hover::before { transform: scaleX(0); }
+}
+
+* { -webkit-tap-highlight-color: rgba(232,201,109,0.15); }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .hero-shimmer, .ring { animation: none !important; }
+  * { transition-duration: 0.01ms !important; }
+}
+
+/* ── MOBILE NAV TOGGLE ── */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px; height: 34px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 250;
+}
+.nav-toggle span {
+  display: block;
+  width: 100%; height: 1.5px;
+  background: var(--gold-hi);
+  transition: transform 0.3s, opacity 0.25s;
+  transform-origin: center;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── TABLET ── */
+@media (max-width: 1080px) {
+  nav { padding: 18px 40px; }
+  .nav-links { gap: 26px; }
+  section { padding: 96px 40px; }
+  .hero { padding: 130px 40px 100px; }
+  .products-layout { gap: 52px; }
+  .contact-inner { gap: 52px; }
+  .luxury-bar { padding: 88px 40px; }
+  footer { padding: 30px 40px; }
+  .service-card { padding: 44px 34px; }
+}
+
+/* ── MOBILE ── */
+@media (max-width: 860px) {
+  nav { padding: 14px 22px; }
+  .nav-logo { font-size: 1.05rem; letter-spacing: 2px; }
+  .nav-toggle { display: flex; }
+
+  /* slide-down menu panel */
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 88px 26px 32px;
+    background: rgba(6,8,16,0.97);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-bottom: 1px solid var(--rule);
+    transform: translateY(-100%);
+    transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+    z-index: 190;
+  }
+  .nav-links.open { transform: translateY(0); }
+  .nav-links li { width: 100%; }
+  .nav-links a {
+    display: block;
+    padding: 16px 0;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    border-bottom: 1px solid rgba(244,246,255,0.05);
+  }
+  .nav-links li:last-child a { border-bottom: none; }
+  .nav-cta {
+    text-align: center;
+    margin-top: 18px;
+    padding: 14px !important;
+  }
+
+  /* hero */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 120px 22px 0;
+    min-height: auto;
+  }
+  .hero h1 { font-size: clamp(2.6rem, 13vw, 4rem); margin-bottom: 22px; }
+  .hero-sub { font-size: 0.95rem; margin-bottom: 36px; max-width: 100%; }
+  .hero-btns { gap: 10px; }
+  .btn-primary, .btn-ghost { padding: 14px 28px; font-size: 0.78rem; letter-spacing: 2px; }
+  .hero-right { padding: 44px 0 0; justify-content: flex-start; }
+  .hero-badge-wrap { max-width: 100%; gap: 8px; }
+  .hero-badge { padding: 15px 16px; }
+  .hb-label { font-size: 0.55rem; letter-spacing: 2px; }
+  .hb-value { font-size: 1rem; }
+
+  /* stats bar: unpin from absolute so it can't overlap */
+  .stats-bar {
+    position: relative;
+    margin: 52px -22px 0;
+    flex-wrap: wrap;
+  }
+  .stat {
+    flex: 0 0 50%;
+    padding: 18px 16px;
+    border-bottom: 1px solid rgba(244,246,255,0.04);
+  }
+  .stat:last-child { flex: 0 0 100%; border-bottom: none; }
+
+  /* sections */
+  section { padding: 72px 22px; }
+  .sec-title { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+  .eyebrow, .luxury-eyebrow { font-size: 0.6rem; letter-spacing: 3.5px; }
+
+  .services-grid { grid-template-columns: 1fr; }
+  .service-card { padding: 38px 26px; }
+  .service-name { font-size: 1.1rem; }
+  .service-price { font-size: 1.9rem; }
+
+  .luxury-bar { padding: 68px 22px; }
+  .luxury-title { font-size: clamp(1.7rem, 7vw, 2.4rem); }
+  .luxury-sub { font-size: 0.9rem; margin-bottom: 40px; }
+  .luxury-cars { flex-direction: column; }
+
+  .socials-grid { grid-template-columns: repeat(2, 1fr); }
+  .social-card { padding: 34px 24px 30px; }
+  .socials-intro { font-size: 0.9rem; margin-bottom: 40px; }
+
+  .products-layout { grid-template-columns: 1fr; gap: 36px; margin-top: 40px; }
+  .products-visual { padding: 48px 30px; }
+  .pv-big { font-size: 3.4rem; }
+
+  .why-grid { grid-template-columns: 1fr; margin-top: 44px; }
+  .why-card { padding: 34px 26px; }
+
+  /* contact */
+  .contact-inner { grid-template-columns: 1fr; gap: 44px; }
+  .contact-form { padding: 32px 24px; }
+  .contact-left p { margin-bottom: 34px; }
+
+  /* 16px minimum stops iOS auto-zoom on focus */
+  .form-group input,
+  .form-group select,
+  .form-group textarea { font-size: 16px; padding: 13px 14px; }
+
+  /* marquee: tighter + slower so it's readable on a narrow screen */
+  .marquee-track { font-size: 0.58rem; letter-spacing: 3px; animation-duration: 20s; }
+  .marquee-track .sep { margin: 0 20px; }
+
+  /* comfortable tap targets */
+  .contact-detail { padding-bottom: 16px; margin-bottom: 16px; }
+  .contact-detail a { font-size: 0.95rem; padding: 4px 0; display: inline-block; }
+  .social-card { min-height: 150px; }
+
+  footer { flex-direction: column; align-items: flex-start; padding: 26px 22px; gap: 14px; }
+  .footer-brand { gap: 4px; }
+}
+
+/* ── SMALL PHONES ── */
+@media (max-width: 420px) {
+  .nav-logo { font-size: 0.9rem; letter-spacing: 1.5px; }
+  .hero { padding: 108px 18px 0; }
+  .hero h1 { font-size: clamp(2.2rem, 13vw, 3rem); }
+  .hero-btns { flex-direction: column; }
+  .btn-primary, .btn-ghost { width: 100%; text-align: center; }
+  .hero-badge-wrap { grid-template-columns: 1fr 1fr; }
+  .stats-bar { margin: 44px -18px 0; }
+  .stat { flex: 0 0 100%; }
+  section { padding: 60px 18px; }
+  .luxury-bar { padding: 56px 18px; }
+  .socials-grid { grid-template-columns: 1fr; }
+  .pv-big { font-size: 2.8rem; }
+  footer { padding: 24px 18px; }
 }
 </style>
 </head>
@@ -1045,12 +1372,16 @@ footer small {
 <!-- NAV -->
 <nav>
   <div class="nav-logo"><em>K&N</em> Premium Detailing</div>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#services">Services</a></li>
+    <li><a href="#socials">Socials</a></li>
     <li><a href="#products">Products</a></li>
     <li><a href="#why">Why Us</a></li>
     <li><a href="#contact" class="nav-cta">Book Now</a></li>
   </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -1069,6 +1400,10 @@ footer small {
   <div class="hero-right">
     <div class="hero-badge-wrap">
       <div class="hero-badge">
+        <span class="hb-label">Trusted With</span>
+        <span class="hb-value">Rolls-Royce<br>&amp; Maybach</span>
+      </div>
+      <div class="hero-badge">
         <span class="hb-label">Mobile Service</span>
         <span class="hb-value">We Come to You</span>
       </div>
@@ -1077,8 +1412,8 @@ footer small {
         <span class="hb-value">$60</span>
       </div>
       <div class="hero-badge">
-        <span class="hb-label">Satisfaction</span>
-        <span class="hb-value">Guaranteed</span>
+        <span class="hb-label">Our Promise</span>
+        <span class="hb-value">Satisfaction<br>Guaranteed</span>
       </div>
     </div>
   </div>
@@ -1092,8 +1427,8 @@ footer small {
       <span class="stat-label">Services</span>
     </div>
     <div class="stat">
-      <span class="stat-num">Guaranteed</span>
-      <span class="stat-label">Satisfaction</span>
+      <span class="stat-num">Interior &amp; Exterior</span>
+      <span class="stat-label">Detailing</span>
     </div>
   </div>
 </section>
@@ -1165,6 +1500,56 @@ footer small {
     </div>
   </div>
 </div>
+
+<!-- SOCIALS -->
+<section id="socials">
+  <p class="eyebrow">Stay Connected</p>
+  <h2 class="sec-title">Our <span class="g">Socials</span></h2>
+  <div class="sec-rule"></div>
+  <p class="socials-intro">See our latest details, before-and-afters, and behind-the-scenes work. Follow along and message us any time — we reply fast.</p>
+
+  <div class="socials-grid">
+    <a href="https://www.instagram.com/knpremiumdetailing10" target="_blank" rel="noopener" class="social-card">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/>
+        <circle cx="12" cy="12" r="4.2"/>
+        <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
+      </svg>
+      <span class="social-name">Instagram</span>
+      <span class="social-handle">@knpremiumdetailing10</span>
+      <span class="social-go">Follow &rarr;</span>
+    </a>
+
+    <a href="https://www.tiktok.com/@knpremiumdetailing" target="_blank" rel="noopener" class="social-card">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.2 2.5v11.9a3.9 3.9 0 1 1-3.9-3.9c.35 0 .69.05 1 .14"/>
+        <path d="M14.2 2.5a5.6 5.6 0 0 0 5.5 4.6"/>
+      </svg>
+      <span class="social-name">TikTok</span>
+      <span class="social-handle">@knpremiumdetailing</span>
+      <span class="social-go">Follow &rarr;</span>
+    </a>
+
+    <a href="https://www.facebook.com/knpremiumdetailing" target="_blank" rel="noopener" class="social-card">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+      </svg>
+      <span class="social-name">Facebook</span>
+      <span class="social-handle">@knpremiumdetailing</span>
+      <span class="social-go">Follow &rarr;</span>
+    </a>
+
+    <a href="mailto:knpremiumdetailing10@gmail.com" class="social-card">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2.5" y="4.8" width="19" height="14.4" rx="2.5"/>
+        <path d="M3.4 6.6 12 13l8.6-6.4"/>
+      </svg>
+      <span class="social-name">Email Us</span>
+      <span class="social-handle">knpremiumdetailing10@gmail.com</span>
+      <span class="social-go">Send a Note &rarr;</span>
+    </a>
+  </div>
+</section>
 
 <!-- PRODUCTS -->
 <section id="products">
@@ -1250,15 +1635,15 @@ footer small {
       <p>Ready to bring your car back to life? Fill out the form and we'll get back to you within a few hours to confirm your booking and answer any questions.</p>
       <div class="contact-detail">
         <div class="contact-pip"></div>
-        <span>(908) 304-1000</span>
+        <a href="tel:+19083041000">(908) 304-1000</a>
       </div>
       <div class="contact-detail">
         <div class="contact-pip"></div>
-        <span>(848) 297-4620</span>
+        <a href="tel:+18482974620">(848) 297-4620</a>
       </div>
       <div class="contact-detail">
         <div class="contact-pip"></div>
-        <span>knpremiumdetailing10@gmail.com</span>
+        <a href="mailto:knpremiumdetailing10@gmail.com">knpremiumdetailing10@gmail.com</a>
       </div>
       <div class="contact-detail">
         <div class="contact-pip"></div>
@@ -1299,7 +1684,7 @@ footer small {
           </select>
         </div>
         <div class="form-group">
-          <label>Describe What You Want Done &nbsp;<span style="font-weight:300; letter-spacing:0.5px; text-transform:none; font-size:0.6rem; color:rgba(244,246,255,0.28);">(might raise price depending on request)</span></label>
+          <label>Describe What You Want Done &nbsp;<span style="font-weight:300; letter-spacing:0.5px; text-transform:none; font-size:0.6rem; color:var(--white);">(might raise price depending on request)</span></label>
           <textarea name="notes" placeholder="e.g. Focus on the seats, clean the rims, remove stains from carpet..."></textarea>
         </div>
         <input type="hidden" name="_subject" value="New Quote Request — K&N Premium Detailing">
@@ -1339,15 +1724,40 @@ footer small {
 </section>
 
 <!-- FOOTER -->
+<!-- MOBILE STICKY CTA -->
+<div class="mobile-cta">
+  <a href="tel:+19083041000" class="mcta-call">Call Now</a>
+  <a href="#contact" class="mcta-book">Book a Detail</a>
+</div>
+
 <footer>
-  <div class="footer-logo"><em>K&N</em> Premium Detailing</div>
-  <small>© 2024 K&amp;N Premium Detailing. All rights reserved.</small>
-  <div class="footer-links">
-    <a href="#services">Services</a>
-    <a href="#products">Products</a>
-    <a href="#contact">Book Now</a>
+  <div class="footer-brand">
+    <div class="footer-logo"><em>K&N</em> Premium Detailing</div>
+    <span class="footer-est">Est. 2026</span>
   </div>
+  <small>© 2026 K&amp;N Premium Detailing. All rights reserved.</small>
 </footer>
+
+<script>
+  (function () {
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    if (!toggle || !links) return;
+
+    toggle.addEventListener('click', function () {
+      toggle.classList.toggle('open');
+      links.classList.toggle('open');
+    });
+
+    // close menu after tapping a link
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        toggle.classList.remove('open');
+        links.classList.remove('open');
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
