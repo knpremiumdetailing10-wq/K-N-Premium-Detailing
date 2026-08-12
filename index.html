@@ -937,6 +937,221 @@ section { padding: 120px 60px; position: relative; }
   line-height: 1.85;
 }
 
+/* ── REVIEWS ── */
+#reviews {
+  background:
+    radial-gradient(ellipse 60% 55% at 15% 40%, rgba(232,201,109,0.045) 0%, transparent 58%),
+    linear-gradient(180deg, #080B18 0%, #060810 100%);
+}
+
+.rev-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-top: 52px;
+}
+
+/* score block */
+.rev-score {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--ink-mid);
+  padding: 26px 30px;
+  margin-bottom: 14px;
+}
+
+.rev-score-num {
+  font-family: 'Anton', sans-serif;
+  font-size: 3.4rem;
+  line-height: 1;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.rev-score-stars {
+  font-size: 1.15rem;
+  letter-spacing: 3px;
+  color: var(--gold-hi);
+  line-height: 1.2;
+}
+
+.rev-score-count {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-top: 5px;
+}
+
+/* review cards */
+.rev-list { display: flex; flex-direction: column; gap: 1px; }
+
+.rev-card {
+  background: var(--ink-mid);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 24px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+.rev-card:hover { border-color: rgba(232,201,109,0.25); }
+
+
+.rev-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.rev-date {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.45;
+  white-space: nowrap;
+}
+
+.rev-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-hi);
+  border: 1px solid rgba(232,201,109,0.3);
+  border-radius: 20px;
+  padding: 3px 9px 3px 7px;
+}
+.rev-verified svg { width: 10px; height: 10px; }
+
+.rev-stars {
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: var(--gold-hi);
+}
+
+.rev-text {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.rev-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rev-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.rev-car {
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  color: var(--white);
+  opacity: 0.55;
+  padding-left: 12px;
+  border-left: 1px solid var(--rule);
+}
+
+.rev-empty {
+  border: 1px dashed var(--rule);
+  border-radius: 4px;
+  padding: 34px 28px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--white);
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* form side */
+.rev-form-wrap {
+  background: var(--ink-mid);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 40px 36px;
+}
+
+/* star picker */
+.star-picker {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.star {
+  background: none;
+  border: none;
+  padding: 2px 1px;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  color: rgba(244,246,255,0.2);
+  transition: color 0.15s, transform 0.12s;
+}
+.star:hover { transform: scale(1.12); }
+.star.lit { color: var(--gold-hi); }
+
+.star-readout {
+  margin-left: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.6;
+}
+
+.rev-note {
+  margin-top: 14px;
+  font-size: 0.68rem;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  opacity: 0.5;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.form-success-msg {
+  display: none;
+  margin-top: 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* ── CONTACT ── */
 #contact {
   background:
@@ -1088,6 +1303,61 @@ section { padding: 120px 60px; position: relative; }
   box-shadow: 0 4px 20px rgba(184,146,74,0.2);
 }
 .btn-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+
+
+/* ── inline account / auth on booking form ── */
+.cf-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 28px;
+}
+.acct-strip { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.acct-who {
+  font-size: 0.68rem; letter-spacing: 0.5px; color: var(--white); opacity: 0.6;
+  max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.acct-link {
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.66rem; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+  color: var(--gold-hi); transition: opacity 0.2s;
+}
+.acct-link:hover { opacity: 0.7; }
+
+.auth-inline {
+  display: none;
+  border: 1px solid var(--rule); border-radius: 3px;
+  background: rgba(232,201,109,0.03);
+  padding: 20px 20px 22px; margin-bottom: 22px;
+}
+.auth-inline.open { display: block; }
+
+.ai-switch { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.ai-sw {
+  background: none; border: none; cursor: pointer; padding: 4px 0;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 900;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--white); opacity: 0.45; transition: opacity 0.2s, color 0.2s;
+}
+.ai-sw.on { color: var(--gold-hi); opacity: 1; }
+.ai-close {
+  margin-left: auto; background: none; border: none; cursor: pointer;
+  color: var(--white); opacity: 0.4; font-size: 1.3rem; line-height: 1; padding: 0 2px;
+}
+.ai-close:hover { opacity: 1; }
+
+.ai-why {
+  font-size: 0.72rem; font-weight: 400; line-height: 1.6;
+  color: var(--white); opacity: 0.55; margin-bottom: 16px;
+}
+.ai-msg { font-size: 0.72rem; text-align: center; margin-top: 10px; }
+.ai-msg.err { color: #E87D7D; }
+.ai-msg.ok  { color: var(--gold-hi); }
+
+.cf-success {
+  display: none; margin-top: 14px; font-size: 0.8rem; font-weight: 600;
+  text-align: center; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold-hi);
+}
 
 /* ── FOOTER ── */
 footer {
@@ -1327,6 +1597,13 @@ footer small {
   .why-card { padding: 34px 26px; }
 
   /* contact */
+  .rev-layout { grid-template-columns: 1fr; gap: 34px; margin-top: 36px; }
+  .rev-form-wrap { padding: 30px 22px; }
+  .rev-score { padding: 20px 22px; gap: 16px; }
+  .rev-score-num { font-size: 2.6rem; }
+  .star { font-size: 1.9rem; padding: 4px 2px; }
+  .star-readout { margin-left: 8px; font-size: 0.62rem; }
+
   .contact-inner { grid-template-columns: 1fr; gap: 44px; }
   .contact-form { padding: 32px 24px; }
   .contact-left p { margin-bottom: 34px; }
@@ -1366,6 +1643,18 @@ footer small {
   footer { padding: 24px 18px; }
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  /* ═══════════════════════════════════════════════════════
+     SUPABASE CONFIG — replace these two values.
+     Supabase dashboard → Project Settings → Data API
+     The anon key is MEANT to be public. Your data is protected
+     by the Row Level Security rules in supabase-setup.sql.
+     Never paste the "service_role" key here.
+     ═══════════════════════════════════════════════════════ */
+  const SUPABASE_URL      = 'https://yadagidxhgstzazuohdx.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_KqPYJ6HmAbrurRreTPphFw_Ol0xmkdG';
+</script>
 </head>
 <body>
 
@@ -1377,6 +1666,8 @@ footer small {
     <li><a href="#socials">Socials</a></li>
     <li><a href="#products">Products</a></li>
     <li><a href="#why">Why Us</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="portal.html">Account</a></li>
     <li><a href="#contact" class="nav-cta">Book Now</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="Menu">
@@ -1388,7 +1679,7 @@ footer small {
 <section class="hero" id="home">
   <div class="hero-shimmer"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Professional Auto Detailing</p>
+    <p class="hero-eyebrow">Bridgewater, NJ &nbsp;·&nbsp; Mobile Detailing</p>
     <h1>Make Your<br><span class="g">Ride</span><br>Shine<span style="display:inline-block; margin-left:2px; letter-spacing:0">.</span></h1>
     <div class="hero-rule"></div>
     <p class="hero-sub">K&amp;N Premium Detailing delivers showroom-quality results using professional-grade products. Your car deserves the best — we deliver nothing less.</p>
@@ -1475,7 +1766,7 @@ footer small {
         <circle cx="16" cy="21" r="1.5"/>
       </svg>
       <div class="service-name">Premium Interior &amp; Exterior Detail</div>
-      <p class="service-desc">More care taken on every surface — deep vacuum, carpet clean, leather conditioning, dashboard polish, exterior hand wash, wheel detail, and window clean. <span style="color:var(--gold-hi); font-style:italic;">45–60 minutes of dedicated attention.</span></p>
+      <p class="service-desc">More care taken on every surface — deep vacuum, carpet clean, leather conditioning, dashboard polish, exterior hand wash, wheel detail, and window clean. <span style="color:var(--gold-hi); font-style:italic;">3–4 hours of dedicated attention.</span></p>
       <div class="service-price">$100 <sub>starting at</sub></div>
     </div>
   </div>
@@ -1622,6 +1913,86 @@ footer small {
       <div class="why-title">Detail-Obsessed</div>
       <p class="why-desc">We don't just clean cars — we obsess over every panel, trim piece, and crevice until it's perfect.</p>
     </div>
+    <div class="why-card">
+      <span class="why-index">05 — Local</span>
+      <div class="why-title">Bridgewater Born &amp; Teen Run</div>
+      <p class="why-desc">The K and the N — two local teens who co-founded and run this out of Bridgewater, NJ. Every car gets the attention of people building a name, not clocking a shift, and your money stays in the neighborhood.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <p class="eyebrow">What Customers Say</p>
+  <h2 class="sec-title">Reviews &amp; <span class="g">Ratings</span></h2>
+  <div class="sec-rule"></div>
+
+  <div class="rev-layout">
+
+    <!-- LEFT: score + reviews -->
+    <div class="rev-left">
+      <div class="rev-score">
+        <div class="rev-score-num" id="avgScore">—</div>
+        <div>
+          <div class="rev-score-stars" id="avgStars">☆☆☆☆☆</div>
+          <div class="rev-score-count" id="revCount">No reviews yet</div>
+        </div>
+      </div>
+
+      <div class="rev-list" id="revList">
+        <!-- Template for one review:
+        <div class="rev-card" data-rating="5">
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-text">Their words here.</p>
+          <div class="rev-meta"><span class="rev-name">First L.</span><span class="rev-car">2019 Honda Civic</span></div>
+        </div>
+        -->
+        <div class="rev-empty">
+          Be the first to leave a review — we'd love to hear how we did.
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: leave a review -->
+    <div class="rev-form-wrap">
+      <span class="form-heading">Leave a Review</span>
+      <form id="reviewForm">
+
+        <div class="form-group">
+          <label>Your Rating</label>
+          <div class="star-picker" id="starPicker">
+            <button type="button" class="star" data-v="1" aria-label="1 star">★</button>
+            <button type="button" class="star" data-v="2" aria-label="2 stars">★</button>
+            <button type="button" class="star" data-v="3" aria-label="3 stars">★</button>
+            <button type="button" class="star" data-v="4" aria-label="4 stars">★</button>
+            <button type="button" class="star" data-v="5" aria-label="5 stars">★</button>
+            <span class="star-readout" id="starReadout">Tap to rate</span>
+          </div>
+          <input type="hidden" name="rating" id="ratingInput" required>
+        </div>
+
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" name="review_name" placeholder="John S." required>
+        </div>
+
+        <div class="form-group">
+          <label>Vehicle</label>
+          <input type="text" name="review_vehicle" placeholder="2021 Honda Accord">
+        </div>
+
+        <div class="form-group">
+          <label>Your Review</label>
+          <textarea name="review_text" placeholder="How did we do? What stood out?" required></textarea>
+        </div>
+
+        <input type="hidden" name="_subject" value="New Review — K&N Premium Detailing">
+        <button type="submit" class="btn-submit">Submit Review</button>
+        <p class="rev-note">Reviews are checked before they go live, usually within a day.</p>
+        <p id="reviewSuccess" class="form-success-msg">Thank you — your review is pending approval.</p>
+      </form>
+    </div>
+
   </div>
 </section>
 
@@ -1647,13 +2018,33 @@ footer small {
       </div>
       <div class="contact-detail">
         <div class="contact-pip"></div>
-        <span>Mobile Service — We Come to You</span>
+        <span>Based in Bridgewater, NJ — we come to you</span>
       </div>
     </div>
 
     <div class="contact-form">
-      <span class="form-heading">Request a Quote</span>
-      <form action="https://formspree.io/f/xeewrggj" method="POST" id="quoteForm">
+      <div class="cf-head">
+        <span class="form-heading" style="margin:0">Request a Quote</span>
+        <div id="acctStrip" class="acct-strip">
+          <button type="button" class="acct-link" id="openAuth">Sign in</button>
+        </div>
+      </div>
+
+      <!-- inline sign in / sign up -->
+      <div class="auth-inline" id="authInline">
+        <div class="ai-switch">
+          <button type="button" class="ai-sw on" id="aiIn">Sign In</button>
+          <button type="button" class="ai-sw" id="aiUp">Create Account</button>
+          <button type="button" class="ai-close" id="aiClose" aria-label="Close">&times;</button>
+        </div>
+        <p class="ai-why">Optional — booking works without an account. Sign in to track your appointments and rebook faster.</p>
+        <div class="form-group"><label>Email</label><input type="email" id="aiEmail" autocomplete="username"></div>
+        <div class="form-group"><label>Password</label><input type="password" id="aiPass" autocomplete="current-password"></div>
+        <button type="button" class="btn-submit" id="aiGo">Sign In</button>
+        <p class="ai-msg" id="aiMsg"></p>
+      </div>
+
+      <form id="quoteForm">
         <div class="form-group">
           <label>Your Name</label>
           <input type="text" name="name" placeholder="John Smith" required>
@@ -1687,39 +2078,139 @@ footer small {
           <label>Describe What You Want Done &nbsp;<span style="font-weight:300; letter-spacing:0.5px; text-transform:none; font-size:0.6rem; color:var(--white);">(might raise price depending on request)</span></label>
           <textarea name="notes" placeholder="e.g. Focus on the seats, clean the rims, remove stains from carpet..."></textarea>
         </div>
-        <input type="hidden" name="_subject" value="New Quote Request — K&N Premium Detailing">
         <button type="submit" class="btn-submit">Send My Request</button>
-        <p id="form-success" style="display:none; margin-top:14px; color:var(--gold-hi); font-size:0.8rem; font-weight:600; text-align:center; letter-spacing:2px; text-transform:uppercase;">Request Received — We'll Be In Touch.</p>
+        <p id="form-success" class="cf-success">Request received — we'll be in touch.</p>
       </form>
     </div>
   </div>
 
   <script>
+  (function () {
     const form = document.getElementById('quoteForm');
-    form.addEventListener('submit', async function(e) {
+    if (!form) return;
+
+    const ready = typeof SUPABASE_URL !== 'undefined'
+      && SUPABASE_URL.indexOf('YOUR_') === -1
+      && SUPABASE_ANON_KEY.indexOf('YOUR_') === -1;
+    const db = ready ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+    const $ = i => document.getElementById(i);
+    let ME = null, mode = 'in';
+
+    /* ---------- account strip ---------- */
+    async function refreshAcct() {
+      if (!db) { $('openAuth').style.display = 'none'; return; }
+      const { data } = await db.auth.getSession();
+      ME = data.session ? data.session.user : null;
+
+      if (ME) {
+        $('acctStrip').innerHTML =
+          '<span class="acct-who">' + ME.email + '</span>' +
+          '<a class="acct-link" href="portal.html">My Appointments</a>' +
+          '<button type="button" class="acct-link" id="signOut">Sign out</button>';
+        $('signOut').onclick = async () => { await db.auth.signOut(); location.reload(); };
+        $('authInline').classList.remove('open');
+        // prefill what we know
+        if (!form.email.value) form.email.value = ME.email;
+        const nm = ME.user_metadata && ME.user_metadata.full_name;
+        if (nm && !form.name.value) form.name.value = nm;
+      }
+    }
+    refreshAcct();
+
+    /* ---------- inline auth ---------- */
+    const openBtn = $('openAuth');
+    if (openBtn) openBtn.onclick = () => $('authInline').classList.toggle('open');
+    $('aiClose').onclick = () => $('authInline').classList.remove('open');
+
+    function setMode(m) {
+      mode = m;
+      $('aiIn').classList.toggle('on', m === 'in');
+      $('aiUp').classList.toggle('on', m === 'up');
+      $('aiGo').textContent = m === 'up' ? 'Create Account' : 'Sign In';
+      $('aiMsg').textContent = '';
+    }
+    $('aiIn').onclick = () => setMode('in');
+    $('aiUp').onclick = () => setMode('up');
+    $('aiPass').addEventListener('keydown', e => { if (e.key === 'Enter') $('aiGo').click(); });
+
+    $('aiGo').onclick = async () => {
+      if (!db) return;
+      const btn = $('aiGo'), msg = $('aiMsg');
+      const email = $('aiEmail').value.trim(), pass = $('aiPass').value;
+      if (!email || !pass) { msg.className = 'ai-msg err'; msg.textContent = 'Email and password required.'; return; }
+
+      btn.disabled = true; btn.textContent = 'Please wait...'; msg.textContent = '';
+      try {
+        if (mode === 'up') {
+          const { data, error } = await db.auth.signUp({ email, password: pass });
+          if (error) throw error;
+          if (!data.session) {
+            msg.className = 'ai-msg ok';
+            msg.textContent = 'Check your email to confirm, then sign in.';
+            btn.disabled = false; btn.textContent = 'Create Account'; return;
+          }
+        } else {
+          const { error } = await db.auth.signInWithPassword({ email, password: pass });
+          if (error) throw error;
+        }
+        await refreshAcct();
+      } catch (err) {
+        msg.className = 'ai-msg err'; msg.textContent = err.message;
+      }
+      btn.disabled = false; btn.textContent = mode === 'up' ? 'Create Account' : 'Sign In';
+    };
+
+    /* ---------- booking submit ---------- */
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
       const btn = form.querySelector('.btn-submit');
       btn.textContent = 'Sending...';
       btn.disabled = true;
+
+      const fd = new FormData(form);
+      const emailVal = (fd.get('email') || '').trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)) {
+        btn.textContent = 'Valid email required';
+        btn.disabled = false;
+        form.email.focus();
+        setTimeout(() => { btn.textContent = 'Send My Request'; }, 2200);
+        return;
+      }
+
+      const row = {
+        user_id:       ME ? ME.id : null,
+        customer_name: (fd.get('name')    || '').trim().slice(0, 80),
+        email:         emailVal,
+        phone:         (fd.get('contact') || '').trim() || null,
+        vehicle:       (fd.get('vehicle') || '').trim() || null,
+        service:       fd.get('service')  || null,
+        pref_date:     fd.get('date')     || null,
+        notes:         (fd.get('notes')   || '').trim().slice(0, 1500) || null,
+        status:        'requested'
+      };
+
       try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          form.reset();
-          btn.style.display = 'none';
-          document.getElementById('form-success').style.display = 'block';
+        if (db) {
+          const { error } = await db.from('appointments').insert(row);
+          if (error) throw error;
         } else {
-          btn.textContent = 'Error — Try Again';
-          btn.disabled = false;
+          /* not configured yet — fall back to email so nothing is lost */
+          const res = await fetch('https://formspree.io/f/xeewrggj', {
+            method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+          });
+          if (!res.ok) throw new Error('send failed');
         }
-      } catch {
+        form.reset();
+        btn.style.display = 'none';
+        $('form-success').style.display = 'block';
+      } catch (err) {
+        console.error('Booking failed:', err);
         btn.textContent = 'Error — Try Again';
         btn.disabled = false;
       }
     });
+  })();
   </script>
 </section>
 
@@ -1733,7 +2224,7 @@ footer small {
 <footer>
   <div class="footer-brand">
     <div class="footer-logo"><em>K&N</em> Premium Detailing</div>
-    <span class="footer-est">Est. 2026</span>
+    <span class="footer-est">Est. 2026 &nbsp;·&nbsp; Bridgewater, NJ</span>
   </div>
   <small>© 2026 K&amp;N Premium Detailing. All rights reserved.</small>
 </footer>
@@ -1755,6 +2246,182 @@ footer small {
         toggle.classList.remove('open');
         links.classList.remove('open');
       });
+    });
+  })();
+</script>
+
+<script>
+  /* ---- star picker ---- */
+  (function () {
+    const picker  = document.getElementById('starPicker');
+    const input   = document.getElementById('ratingInput');
+    const readout = document.getElementById('starReadout');
+    if (!picker) return;
+
+    const stars = [...picker.querySelectorAll('.star')];
+    const words = ['', 'Poor', 'Fair', 'Good', 'Great', 'Excellent'];
+    let locked = 0;
+
+    const paint = n => stars.forEach((s, i) => s.classList.toggle('lit', i < n));
+
+    stars.forEach(s => {
+      const v = +s.dataset.v;
+      s.addEventListener('mouseenter', () => { paint(v); readout.textContent = words[v]; });
+      s.addEventListener('click', () => {
+        locked = v;
+        input.value = v;
+        paint(v);
+        readout.textContent = v + '.0 — ' + words[v];
+      });
+    });
+
+    picker.addEventListener('mouseleave', () => {
+      paint(locked);
+      readout.textContent = locked ? locked + '.0 — ' + words[locked] : 'Tap to rate';
+    });
+  })();
+
+  /* ---- Supabase: load + submit reviews ---- */
+  (function () {
+    const listEl  = document.getElementById('revList');
+    const scoreEl = document.getElementById('avgScore');
+    const starsEl = document.getElementById('avgStars');
+    const countEl = document.getElementById('revCount');
+    const form    = document.getElementById('reviewForm');
+    if (!listEl) return;
+
+    const configured =
+      typeof SUPABASE_URL !== 'undefined' &&
+      SUPABASE_URL.indexOf('YOUR_') === -1 &&
+      SUPABASE_ANON_KEY.indexOf('YOUR_') === -1;
+
+    const db = configured
+      ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+      : null;
+
+    const esc = s => String(s).replace(/[&<>"']/g,
+      c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    /* "3 days ago" for recent, "12 Mar 2026" once it's older */
+    function when(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      if (isNaN(d)) return '';
+      const days = Math.floor((Date.now() - d) / 86400000);
+      if (days <= 0)  return 'Today';
+      if (days === 1) return 'Yesterday';
+      if (days < 7)   return days + ' days ago';
+      if (days < 14)  return 'Last week';
+      if (days < 60)  return Math.floor(days / 7) + ' weeks ago';
+      return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    }
+
+    function showEmpty(msg) {
+      listEl.innerHTML = '<div class="rev-empty">' + msg + '</div>';
+      scoreEl.textContent = '—';
+      starsEl.textContent = '☆☆☆☆☆';
+      countEl.textContent = 'No reviews yet';
+    }
+
+    function render(rows) {
+      if (!rows.length) {
+        showEmpty("Be the first to leave a review — we'd love to hear how we did.");
+        return;
+      }
+
+      listEl.innerHTML = rows.map(r => {
+        const n = Math.max(1, Math.min(5, r.rating));
+        return '<div class="rev-card">' +
+          '<div class="rev-top">' +
+            '<div class="rev-stars">' + '★'.repeat(n) + '☆'.repeat(5 - n) + '</div>' +
+            '<span class="rev-date">' + esc(when(r.created_at)) + '</span>' +
+          '</div>' +
+          '<p class="rev-text">' + esc(r.review_text) + '</p>' +
+          '<div class="rev-meta">' +
+            '<span class="rev-name">' + esc(r.name) + '</span>' +
+            (r.verified
+              ? '<span class="rev-verified" title="Confirmed customer">' +
+                  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" ' +
+                  'stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+                  'Verified</span>'
+              : '') +
+            (r.vehicle ? '<span class="rev-car">' + esc(r.vehicle) + '</span>' : '') +
+          '</div></div>';
+      }).join('');
+
+      const avg  = rows.reduce((t, r) => t + r.rating, 0) / rows.length;
+      const full = Math.round(avg);
+      scoreEl.textContent = avg.toFixed(1);
+      starsEl.textContent = '★'.repeat(full) + '☆'.repeat(5 - full);
+      countEl.textContent = rows.length + (rows.length === 1 ? ' Review' : ' Reviews');
+    }
+
+    async function load() {
+      if (!db) { showEmpty('Reviews are coming soon.'); return; }
+      try {
+        const { data, error } = await db
+          .from('reviews')
+          .select('name, vehicle, rating, review_text, created_at, verified')
+          .eq('approved', true)
+          .order('created_at', { ascending: false })
+          .limit(20);
+        if (error) throw error;
+        render(data || []);
+      } catch (err) {
+        console.error('Review load failed:', err);
+        showEmpty('Reviews are temporarily unavailable.');
+      }
+    }
+
+    load();
+
+    /* ---- realtime: refresh the list the moment you approve something ---- */
+    if (db) {
+      db.channel('reviews-public')
+        .on('postgres_changes',
+            { event: '*', schema: 'public', table: 'reviews' },
+            load)
+        .subscribe();
+    }
+
+    /* ---- submit ---- */
+    if (!form) return;
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const btn    = form.querySelector('.btn-submit');
+      const rating = document.getElementById('ratingInput').value;
+
+      if (!rating) {
+        document.getElementById('starReadout').textContent = 'Please pick a rating';
+        return;
+      }
+      if (!db) { btn.textContent = 'Not configured yet'; return; }
+
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      const fd = new FormData(form);
+      try {
+        const { error } = await db.from('reviews').insert({
+          name:        (fd.get('review_name')    || '').trim().slice(0, 60),
+          vehicle:     (fd.get('review_vehicle') || '').trim().slice(0, 60) || null,
+          review_text: (fd.get('review_text')    || '').trim().slice(0, 1500),
+          rating:      parseInt(rating, 10),
+          approved:    false,
+          verified:    false
+        });
+        if (error) throw error;
+
+        form.reset();
+        btn.style.display = 'none';
+        const note = document.querySelector('.rev-note');
+        if (note) note.style.display = 'none';
+        document.getElementById('reviewSuccess').style.display = 'block';
+      } catch (err) {
+        console.error('Review submit failed:', err);
+        btn.textContent = 'Error — Try Again';
+        btn.disabled = false;
+      }
     });
   })();
 </script>
