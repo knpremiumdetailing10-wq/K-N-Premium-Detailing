@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K&N Premium Detailing — Account</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@300;400;600;700;900&family=Barlow+Condensed:wght@600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  /* Same two values as index.html */
+  const SUPABASE_URL      = 'https://yadagidxhgstzazuohdx.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_KqPYJ6HmAbrurRreTPphFw_Ol0xmkdG';
+
+  /* Your personal email — must match is_owner() in supabase-setup.sql.
+     This only switches the UI. Real enforcement is in the database. */
+  const OWNER_EMAIL = 'nat3isntavalible@gmail.com';
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#060810;--ink-mid:#0B0E1F;--ink-lift:#101428;
+  --gold-hi:#F5DC94;--gold-lo:#E8C96D;
+  --gold-grad:linear-gradient(135deg,#F5DC94 0%,#E8C96D 100%);
+  --white:#F4F6FF;--muted:rgba(244,246,255,0.58);--rule:rgba(232,201,109,0.16);
+  --green:#6DE8A8;--red:#E87D7D;--blue:#8EC8E8;
+}
+body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;min-height:100vh}
+.wrap{max-width:1180px;margin:0 auto;padding:26px 22px 80px}
+
+/* AUTH */
+#auth{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px;
+  background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(184,146,74,.07) 0%,transparent 60%),
+             linear-gradient(170deg,#060810,#0B0E1F)}
+.auth-box{width:100%;max-width:390px;background:var(--ink-mid);border:1px solid var(--rule);
+  border-radius:4px;padding:38px 32px}
+.brand{font-family:'Anton',sans-serif;font-size:1.28rem;letter-spacing:2px;text-transform:uppercase}
+.brand em{font-style:normal;background:var(--gold-grad);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text}
+.brand-sub{font-size:.64rem;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;
+  color:var(--muted);margin:4px 0 26px}
+.switcher{display:flex;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:3px;overflow:hidden;margin-bottom:22px}
+.sw{flex:1;background:var(--ink-mid);border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;
+  font-size:.7rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+  padding:11px;transition:.2s}
+.sw.on{background:var(--ink-lift);color:var(--gold-hi)}
+
+/* HEADER */
+header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  padding-bottom:18px;margin-bottom:24px;border-bottom:1px solid var(--rule)}
+.hdr-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hdr-user{font-size:.72rem;color:var(--muted)}
+.badge-owner{font-size:.55rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  background:var(--gold-grad);color:var(--ink);padding:3px 8px;border-radius:20px}
+
+/* TABS */
+.tabs{display:flex;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;margin-bottom:24px}
+.tab{flex:1;background:var(--ink-mid);border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;
+  font-size:.74rem;font-weight:900;letter-spacing:2.2px;text-transform:uppercase;color:var(--muted);
+  padding:13px 8px;transition:.2s}
+.tab:hover{background:var(--ink-lift);color:var(--white)}
+.tab.active{background:var(--ink-lift);color:var(--gold-hi);box-shadow:inset 0 2px 0 var(--gold-lo)}
+.panel{display:none}.panel.active{display:block}
+
+/* STATS */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:4px;overflow:hidden;margin-bottom:24px}
+.sc{background:var(--ink-mid);padding:18px 20px}
+.sc-label{font-size:.58rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:6px}
+.sc-val{font-family:'Anton',sans-serif;font-size:1.8rem;line-height:1;background:var(--gold-grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* CARD */
+.card{background:var(--ink-mid);border:1px solid var(--rule);border-radius:4px;padding:24px;margin-bottom:18px}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:900;letter-spacing:4px;
+  text-transform:uppercase;background:var(--gold-grad);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;margin-bottom:18px}
+
+/* FORM */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.fg{margin-bottom:13px}
+.fg label{display:block;font-size:.59rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--white);margin-bottom:6px}
+.fg input,.fg select,.fg textarea{width:100%;background:rgba(244,246,255,.03);
+  border:1px solid rgba(244,246,255,.09);border-radius:2px;padding:11px 13px;color:var(--white);
+  font-family:'Barlow',sans-serif;font-size:16px;outline:none;transition:.2s;appearance:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(232,201,109,.35)}
+.fg select option{background:#0B0E1F}
+.fg textarea{resize:vertical;min-height:68px}
+.fg input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.6);cursor:pointer}
+
+/* BUTTONS */
+.btn{font-family:'Barlow Condensed',sans-serif;font-size:.76rem;font-weight:900;letter-spacing:2.4px;
+  text-transform:uppercase;border:none;border-radius:2px;padding:13px 24px;cursor:pointer;transition:.15s}
+.btn:hover{opacity:.85;transform:translateY(-1px)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-gold{background:var(--gold-grad);color:var(--ink);width:100%}
+.btn-sm{padding:7px 12px;font-size:.63rem;letter-spacing:1.4px}
+.btn-ok{background:rgba(109,232,168,.14);color:var(--green);border:1px solid rgba(109,232,168,.3)}
+.btn-warn{background:rgba(232,125,125,.12);color:var(--red);border:1px solid rgba(232,125,125,.3)}
+.btn-info{background:rgba(142,200,232,.12);color:var(--blue);border:1px solid rgba(142,200,232,.3)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(244,246,255,.15)}
+
+/* ROWS */
+.row{border:1px solid var(--rule);border-radius:4px;background:var(--ink-mid);padding:17px 19px;margin-bottom:9px}
+.row-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:9px}
+.row-name{font-family:'Barlow Condensed',sans-serif;font-size:.98rem;font-weight:900;letter-spacing:1.4px;text-transform:uppercase}
+.row-sub{font-size:.74rem;color:var(--muted);margin-top:3px}
+.row-body{font-size:.86rem;line-height:1.7;margin-bottom:12px}
+.row-acts{display:flex;gap:7px;flex-wrap:wrap}
+.stars-in{color:var(--gold-hi);font-size:.88rem;letter-spacing:2px}
+.price{font-family:'Anton',sans-serif;font-size:1.2rem;background:var(--gold-grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.pill{display:inline-block;font-size:.56rem;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  padding:3px 9px;border-radius:20px}
+.p-pending,.p-requested,.p-in_progress{background:rgba(232,201,109,.12);color:var(--gold-hi);border:1px solid rgba(232,201,109,.3)}
+.p-live,.p-completed{background:rgba(109,232,168,.12);color:var(--green);border:1px solid rgba(109,232,168,.3)}
+.p-verified,.p-scheduled{background:rgba(142,200,232,.12);color:var(--blue);border:1px solid rgba(142,200,232,.3)}
+.p-cancelled{background:rgba(232,125,125,.12);color:var(--red);border:1px solid rgba(232,125,125,.3)}
+.p-due{background:rgba(232,125,125,.12);color:var(--red);border:1px solid rgba(232,125,125,.3)}
+
+.empty{border:1px dashed var(--rule);border-radius:4px;padding:28px;text-align:center;
+  color:var(--muted);font-style:italic;font-size:.86rem}
+.msg{font-size:.76rem;margin-top:11px;text-align:center}
+.msg.err{color:var(--red)}.msg.ok{color:var(--green)}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.filt{background:var(--ink-mid);border:1px solid var(--rule);border-radius:2px;color:var(--muted);
+  font-size:.63rem;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;padding:8px 13px;cursor:pointer;transition:.2s}
+.filt.on{background:var(--ink-lift);color:var(--gold-hi);border-color:rgba(232,201,109,.35)}
+.banner{border:1px solid rgba(232,201,109,.3);background:rgba(232,201,109,.06);border-radius:4px;
+  padding:15px 18px;margin-bottom:20px;font-size:.8rem;line-height:1.65}
+.backlink{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+  text-decoration:none;font-weight:700}
+.backlink:hover{color:var(--gold-hi)}
+@media(max-width:700px){
+  .wrap{padding:18px 14px 70px}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .tab{font-size:.62rem;letter-spacing:1.2px;padding:12px 5px}
+  .row-top{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ AUTH ═══ -->
+<div id="auth">
+  <div class="auth-box">
+    <div class="brand"><em>K&N</em> Premium Detailing</div>
+    <div class="brand-sub" id="authSub">Sign in to book</div>
+
+    <div class="switcher">
+      <button class="sw on" id="swIn">Sign In</button>
+      <button class="sw" id="swUp">Create Account</button>
+    </div>
+
+    <div class="fg" id="nameWrap" style="display:none">
+      <label>Your Name</label><input type="text" id="auName" autocomplete="name">
+    </div>
+    <div class="fg"><label>Email</label><input type="email" id="auEmail" autocomplete="username"></div>
+    <div class="fg"><label>Password</label><input type="password" id="auPass" autocomplete="current-password"></div>
+
+    <button class="btn btn-gold" id="auBtn">Sign In</button>
+    <p class="msg err" id="auMsg"></p>
+    <p style="text-align:center;margin-top:18px"><a href="index.html" class="backlink">← Back to site</a></p>
+  </div>
+</div>
+
+<!-- ═══ APP ═══ -->
+<div class="wrap" id="app" style="display:none">
+  <header>
+    <div class="brand"><em>K&N</em> <span id="portalLabel">Account</span></div>
+    <div class="hdr-right">
+      <span class="badge-owner" id="ownerBadge" style="display:none">Owner</span>
+      <span class="hdr-user" id="whoami"></span>
+      <a href="index.html" class="backlink">Site</a>
+      <button class="btn btn-ghost btn-sm" id="outBtn">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- OWNER STATS -->
+  <div class="stat-row" id="ownerStats" style="display:none">
+    <div class="sc"><div class="sc-label">New Requests</div><div class="sc-val" id="sReq">0</div></div>
+    <div class="sc"><div class="sc-label">Pending Reviews</div><div class="sc-val" id="sPending">0</div></div>
+    <div class="sc"><div class="sc-label">Avg Rating</div><div class="sc-val" id="sAvg">—</div></div>
+    <div class="sc"><div class="sc-label">Due Rebooking</div><div class="sc-val" id="sDue">0</div></div>
+    <div class="sc"><div class="sc-label">Revenue</div><div class="sc-val" id="sRev">$0</div></div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <!-- ── CUSTOMER: BOOK ── -->
+  <div class="panel" id="panel-book">
+    <div class="card">
+      <div class="card-title">Request an Appointment</div>
+      <div class="grid2">
+        <div class="fg"><label>Your Name</label><input type="text" id="bName"></div>
+        <div class="fg"><label>Email</label><input type="email" id="bEmail" placeholder="you@email.com"></div>
+      </div>
+      <div class="grid2">
+        <div class="fg"><label>Phone</label><input type="text" id="bPhone" placeholder="(555) 000-0000"></div>
+        <div class="fg"><label>Vehicle</label><input type="text" id="bVehicle" placeholder="2021 Honda Accord"></div>
+      </div>
+      <div class="grid2">
+        <div class="fg"><label>Preferred Date</label><input type="date" id="bDate"></div>
+      </div>
+      <div class="fg">
+        <label>Service</label>
+        <select id="bService">
+          <option>Express Wash &amp; Shine — $60+</option>
+          <option>Premium Interior &amp; Exterior Detail — $100+</option>
+          <option>Waxing — Price on Request</option>
+        </select>
+      </div>
+      <div class="fg"><label>What would you like done?</label>
+        <textarea id="bNotes" placeholder="Anything specific — stains, pet hair, rims..."></textarea></div>
+      <button class="btn btn-gold" id="bookBtn">Request Appointment</button>
+      <p class="msg" id="bookMsg"></p>
+    </div>
+  </div>
+
+  <!-- ── CUSTOMER: MY APPOINTMENTS ── -->
+  <div class="panel" id="panel-mine">
+    <div id="myList"></div>
+  </div>
+
+  <!-- ── OWNER: REQUESTS ── -->
+  <div class="panel" id="panel-requests">
+    <div class="filters" id="apptFilters">
+      <button class="filt on" data-f="requested">New</button>
+      <button class="filt" data-f="scheduled">Scheduled</button>
+      <button class="filt" data-f="completed">Completed</button>
+      <button class="filt" data-f="all">All</button>
+    </div>
+    <div id="apptList"></div>
+  </div>
+
+  <!-- ── OWNER: JOBS ── -->
+  <div class="panel" id="panel-jobs">
+    <div class="card">
+      <div class="card-title">Log a Job</div>
+      <div class="grid2">
+        <div class="fg"><label>Customer</label><input type="text" id="jName"></div>
+        <div class="fg"><label>Date</label><input type="date" id="jDate"></div>
+      </div>
+      <div class="grid2">
+        <div class="fg"><label>Phone</label><input type="text" id="jPhone"></div>
+        <div class="fg"><label>Email</label><input type="email" id="jEmail"></div>
+      </div>
+      <div class="grid3">
+        <div class="fg"><label>Vehicle</label><input type="text" id="jVehicle"></div>
+        <div class="fg"><label>Service</label>
+          <select id="jService">
+            <option>Express Wash &amp; Shine</option>
+            <option>Premium Interior &amp; Exterior Detail</option>
+            <option>Waxing</option><option>Other</option>
+          </select></div>
+        <div class="fg"><label>Price ($)</label><input type="number" id="jPrice" step="0.01" min="0"></div>
+      </div>
+      <div class="fg"><label>Status</label>
+        <select id="jStatus">
+          <option value="scheduled">Scheduled</option>
+          <option value="in_progress">In Progress</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select></div>
+      <div class="fg"><label>Notes</label><textarea id="jNotes"></textarea></div>
+      <button class="btn btn-gold" id="addJobBtn">Add Job</button>
+      <p class="msg" id="jobMsg"></p>
+    </div>
+    <div class="filters" id="jobFilters">
+      <button class="filt on" data-f="all">All</button>
+      <button class="filt" data-f="scheduled">Scheduled</button>
+      <button class="filt" data-f="completed">Completed</button>
+    </div>
+    <div id="jobList"></div>
+  </div>
+
+  <!-- ── OWNER: REBOOKING ── -->
+  <div class="panel" id="panel-due">
+    <div class="banner">
+      Completed jobs older than 10 weeks. Detailing is recurring — a short message
+      to a happy past customer is the easiest booking you'll get.
+    </div>
+    <div id="dueList"></div>
+  </div>
+
+  <!-- ── OWNER: REVIEWS ── -->
+  <div class="panel" id="panel-reviews">
+    <div class="banner">
+      <strong>Verified badge:</strong> only mark a review verified if you actually
+      detailed that person's car — check the Jobs tab. A badge on everyone means nothing.
+    </div>
+    <div class="filters" id="revFilters">
+      <button class="filt on" data-f="pending">Pending</button>
+      <button class="filt" data-f="live">Live</button>
+      <button class="filt" data-f="all">All</button>
+    </div>
+    <div id="revList"></div>
+  </div>
+</div>
+
+<script>
+const ready = SUPABASE_URL.indexOf('YOUR_')===-1 && SUPABASE_ANON_KEY.indexOf('YOUR_')===-1;
+const db = ready ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const $ = i => document.getElementById(i);
+const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+let ME=null, IS_OWNER=false, MODE='in';
+let APPTS=[], JOBS=[], REVIEWS=[];
+let apptFilter='requested', jobFilter='all', revFilter='pending';
+
+/* ---------- AUTH UI ---------- */
+$('swIn').onclick = () => setMode('in');
+$('swUp').onclick = () => setMode('up');
+function setMode(m){
+  MODE=m;
+  $('swIn').classList.toggle('on',m==='in');
+  $('swUp').classList.toggle('on',m==='up');
+  $('nameWrap').style.display = m==='up'?'block':'none';
+  $('auBtn').textContent = m==='up'?'Create Account':'Sign In';
+  $('authSub').textContent = m==='up'?'Create an account to book':'Sign in to book';
+  $('auMsg').textContent='';
+}
+
+$('auPass').addEventListener('keydown',e=>{ if(e.key==='Enter') $('auBtn').click(); });
+
+$('auBtn').onclick = async () => {
+  if(!ready){ $('auMsg').textContent='Add your Supabase keys to portal.html first.'; return; }
+  const btn=$('auBtn'), msg=$('auMsg');
+  const email=$('auEmail').value.trim(), pass=$('auPass').value;
+  if(!email||!pass){ msg.className='msg err'; msg.textContent='Email and password required.'; return; }
+
+  btn.disabled=true; btn.textContent='Please wait...'; msg.textContent='';
+  try{
+    if(MODE==='up'){
+      const { data, error } = await db.auth.signUp({
+        email, password: pass,
+        options:{ data:{ full_name: $('auName').value.trim() } }
+      });
+      if(error) throw error;
+      if(!data.session){
+        msg.className='msg ok';
+        msg.textContent='Check your email to confirm your account, then sign in.';
+        btn.disabled=false; btn.textContent='Create Account'; return;
+      }
+      start(data.session);
+    } else {
+      const { data, error } = await db.auth.signInWithPassword({ email, password: pass });
+      if(error) throw error;
+      start(data.session);
+    }
+  }catch(err){
+    msg.className='msg err'; msg.textContent=err.message;
+    btn.disabled=false; btn.textContent = MODE==='up'?'Create Account':'Sign In';
+  }
+};
+
+$('outBtn').onclick = async () => { await db.auth.signOut(); location.reload(); };
+
+/* ---------- BOOT ---------- */
+async function boot(){
+  if(!ready) return;
+  const { data } = await db.auth.getSession();
+  if(data.session) start(data.session);
+}
+
+function start(session){
+  ME = session.user;
+  IS_OWNER = (ME.email||'').toLowerCase() === OWNER_EMAIL.toLowerCase();
+  $('auth').style.display='none';
+  $('app').style.display='block';
+  $('whoami').textContent = ME.email;
+  $('portalLabel').textContent = IS_OWNER ? 'Owner Panel' : 'My Account';
+  $('ownerBadge').style.display = IS_OWNER ? 'inline-block' : 'none';
+  $('ownerStats').style.display = IS_OWNER ? 'grid' : 'none';
+
+  buildTabs();
+  prefill();
+  loadAll();
+
+  db.channel('portal')
+    .on('postgres_changes',{event:'*',schema:'public',table:'appointments'},loadAll)
+    .on('postgres_changes',{event:'*',schema:'public',table:'reviews'},loadAll)
+    .subscribe();
+}
+
+function buildTabs(){
+  const t = IS_OWNER
+    ? [['requests','Requests'],['jobs','Jobs'],['due','Rebooking'],['reviews','Reviews']]
+    : [['book','Book'],['mine','My Appointments']];
+  $('tabs').innerHTML = t.map((x,i)=>
+    `<button class="tab${i===0?' active':''}" data-tab="${x[0]}">${x[1]}</button>`).join('');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  $('panel-'+t[0][0]).classList.add('active');
+  document.querySelectorAll('.tab').forEach(tb=>tb.onclick=()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    tb.classList.add('active');
+    $('panel-'+tb.dataset.tab).classList.add('active');
+  });
+}
+
+function prefill(){
+  const nm = ME.user_metadata?.full_name || '';
+  if($('bName')) $('bName').value = nm;
+  const today = new Date().toISOString().slice(0,10);
+  if($('bDate')) $('bDate').value = today;
+  if($('bEmail')) $('bEmail').value = ME.email || '';
+  if($('jDate')) $('jDate').value = today;
+}
+
+/* ---------- LOAD ---------- */
+async function loadAll(){
+  const jobs = [ loadAppts(), loadReviews() ];
+  if(IS_OWNER) jobs.push(loadJobs());
+  await Promise.all(jobs);
+  if(IS_OWNER) stats();
+}
+
+async function loadAppts(){
+  const { data, error } = await db.from('appointments').select('*').order('created_at',{ascending:false});
+  if(error){ console.error(error); return; }
+  APPTS = data||[];
+  IS_OWNER ? renderAppts() : renderMine();
+}
+async function loadJobs(){
+  const { data, error } = await db.from('jobs').select('*').order('job_date',{ascending:false});
+  if(error){ console.error(error); return; }
+  JOBS = data||[]; renderJobs(); renderDue();
+}
+async function loadReviews(){
+  const { data, error } = await db.from('reviews').select('*').order('created_at',{ascending:false});
+  if(error){ console.error(error); return; }
+  REVIEWS = data||[]; if(IS_OWNER) renderReviews();
+}
+
+function stats(){
+  const live = REVIEWS.filter(r=>r.approved);
+  $('sReq').textContent = APPTS.filter(a=>a.status==='requested').length;
+  $('sPending').textContent = REVIEWS.filter(r=>!r.approved).length;
+  $('sAvg').textContent = live.length ? (live.reduce((t,r)=>t+r.rating,0)/live.length).toFixed(1) : '—';
+  $('sDue').textContent = dueJobs().length;
+  $('sRev').textContent = '$' + JOBS.filter(j=>j.status==='completed')
+    .reduce((t,j)=>t+(parseFloat(j.price)||0),0).toFixed(0);
+}
+
+const fmt = d => { if(!d) return ''; const x=new Date(d+'T00:00:00');
+  return isNaN(x)?d:x.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); };
+const fmtTs = t => new Date(t).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+
+/* ---------- CUSTOMER ---------- */
+$('bookBtn').onclick = async () => {
+  const msg=$('bookMsg'), btn=$('bookBtn');
+  const name=$('bName').value.trim();
+  const mail=$('bEmail').value.trim();
+  if(!name){ msg.className='msg err'; msg.textContent='Please enter your name.'; return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){
+    msg.className='msg err'; msg.textContent='A valid email is required.'; $('bEmail').focus(); return; }
+  btn.disabled=true; btn.textContent='Sending...';
+  const { error } = await db.from('appointments').insert({
+    user_id: ME.id, customer_name: name, email: mail,
+    phone: $('bPhone').value.trim()||null,
+    vehicle: $('bVehicle').value.trim()||null,
+    service: $('bService').value,
+    pref_date: $('bDate').value||null,
+    notes: $('bNotes').value.trim()||null,
+    status:'requested'
+  });
+  btn.disabled=false; btn.textContent='Request Appointment';
+  if(error){ msg.className='msg err'; msg.textContent=error.message; return; }
+  msg.className='msg ok'; msg.textContent='Request sent — we\'ll confirm shortly.';
+  $('bNotes').value=''; $('bVehicle').value='';
+  setTimeout(()=>msg.textContent='',3000);
+  loadAppts();
+};
+
+function renderMine(){
+  if(!APPTS.length){ $('myList').innerHTML='<div class="empty">No appointments yet. Book one above.</div>'; return; }
+  $('myList').innerHTML = APPTS.map(a=>`
+    <div class="row">
+      <div class="row-top">
+        <div>
+          <div class="row-name">${esc(a.service||'Detail')}</div>
+          <div class="row-sub">${esc(fmt(a.pref_date))}${a.vehicle?' · '+esc(a.vehicle):''}</div>
+        </div>
+        <div style="text-align:right">
+          ${a.price?'<div class="price">$'+Number(a.price).toFixed(0)+'</div>':''}
+          <span class="pill p-${esc(a.status)}">${esc(a.status.replace('_',' '))}</span>
+        </div>
+      </div>
+      ${a.notes?'<div class="row-body">'+esc(a.notes)+'</div>':''}
+      ${['requested','scheduled'].includes(a.status)
+        ? `<div class="row-acts"><button class="btn btn-sm btn-warn" onclick="cancelMine(${a.id})">Cancel</button></div>` : ''}
+    </div>`).join('');
+}
+async function cancelMine(id){
+  if(!confirm('Cancel this appointment?')) return;
+  await db.from('appointments').update({status:'cancelled'}).eq('id',id);
+  loadAppts();
+}
+
+/* ---------- OWNER: APPOINTMENTS ---------- */
+$('apptFilters').onclick = e => {
+  if(!e.target.classList.contains('filt')) return;
+  $('apptFilters').querySelectorAll('.filt').forEach(b=>b.classList.remove('on'));
+  e.target.classList.add('on'); apptFilter=e.target.dataset.f; renderAppts();
+};
+function renderAppts(){
+  const rows = apptFilter==='all'?APPTS:APPTS.filter(a=>a.status===apptFilter);
+  if(!rows.length){ $('apptList').innerHTML='<div class="empty">Nothing here.</div>'; return; }
+  $('apptList').innerHTML = rows.map(a=>`
+    <div class="row">
+      <div class="row-top">
+        <div>
+          <div class="row-name">${esc(a.customer_name)}</div>
+          <div class="row-sub">${esc(fmt(a.pref_date))}${a.vehicle?' · '+esc(a.vehicle):''}${a.service?' · '+esc(a.service):''}</div>
+          <div class="row-sub">
+            ${a.phone?'<a href="tel:'+esc(a.phone)+'" style="color:inherit">'+esc(a.phone)+'</a>':''}
+            ${a.email?' · <a href="mailto:'+esc(a.email)+'" style="color:inherit">'+esc(a.email)+'</a>':''}
+          </div>
+        </div>
+        <span class="pill p-${esc(a.status)}">${esc(a.status.replace('_',' '))}</span>
+      </div>
+      ${a.notes?'<div class="row-body">'+esc(a.notes)+'</div>':''}
+      <div class="row-acts">
+        ${a.status!=='scheduled'?`<button class="btn btn-sm btn-info" onclick="setAppt(${a.id},'scheduled')">Confirm</button>`:''}
+        ${a.status!=='completed'?`<button class="btn btn-sm btn-ok" onclick="setAppt(${a.id},'completed')">Complete</button>`:''}
+        ${a.status!=='cancelled'?`<button class="btn btn-sm btn-ghost" onclick="setAppt(${a.id},'cancelled')">Cancel</button>`:''}
+        <button class="btn btn-sm btn-warn" onclick="delAppt(${a.id})">Delete</button>
+      </div>
+    </div>`).join('');
+}
+async function setAppt(id,status){ await db.from('appointments').update({status}).eq('id',id); loadAppts(); stats(); }
+async function delAppt(id){ if(!confirm('Delete permanently?'))return;
+  await db.from('appointments').delete().eq('id',id); loadAppts(); stats(); }
+
+/* ---------- OWNER: JOBS ---------- */
+$('jobFilters').onclick = e => {
+  if(!e.target.classList.contains('filt')) return;
+  $('jobFilters').querySelectorAll('.filt').forEach(b=>b.classList.remove('on'));
+  e.target.classList.add('on'); jobFilter=e.target.dataset.f; renderJobs();
+};
+$('addJobBtn').onclick = async () => {
+  const msg=$('jobMsg'), btn=$('addJobBtn'), name=$('jName').value.trim();
+  if(!name){ msg.className='msg err'; msg.textContent='Customer name required.'; return; }
+  btn.disabled=true; btn.textContent='Saving...';
+  const { error } = await db.from('jobs').insert({
+    customer_name:name, job_date:$('jDate').value||new Date().toISOString().slice(0,10),
+    phone:$('jPhone').value.trim()||null, email:$('jEmail').value.trim()||null,
+    vehicle:$('jVehicle').value.trim()||null, service:$('jService').value,
+    price:$('jPrice').value?parseFloat($('jPrice').value):null,
+    status:$('jStatus').value, notes:$('jNotes').value.trim()||null
+  });
+  btn.disabled=false; btn.textContent='Add Job';
+  if(error){ msg.className='msg err'; msg.textContent=error.message; return; }
+  msg.className='msg ok'; msg.textContent='Job added.';
+  ['jName','jPhone','jEmail','jVehicle','jPrice','jNotes'].forEach(i=>$(i).value='');
+  setTimeout(()=>msg.textContent='',2500);
+  loadJobs(); stats();
+};
+function renderJobs(){
+  const rows = jobFilter==='all'?JOBS:JOBS.filter(j=>j.status===jobFilter);
+  if(!rows.length){ $('jobList').innerHTML='<div class="empty">No jobs yet.</div>'; return; }
+  $('jobList').innerHTML = rows.map(j=>`
+    <div class="row">
+      <div class="row-top">
+        <div>
+          <div class="row-name">${esc(j.customer_name)}</div>
+          <div class="row-sub">${esc(fmt(j.job_date))}${j.vehicle?' · '+esc(j.vehicle):''}${j.service?' · '+esc(j.service):''}</div>
+          <div class="row-sub">${j.phone?'<a href="tel:'+esc(j.phone)+'" style="color:inherit">'+esc(j.phone)+'</a>':''}${j.email?' · '+esc(j.email):''}</div>
+        </div>
+        <div style="text-align:right">
+          ${j.price?'<div class="price">$'+Number(j.price).toFixed(0)+'</div>':''}
+          <span class="pill p-${esc(j.status)}">${esc(j.status.replace('_',' '))}</span>
+        </div>
+      </div>
+      ${j.notes?'<div class="row-body">'+esc(j.notes)+'</div>':''}
+      <div class="row-acts">
+        ${j.status!=='completed'?`<button class="btn btn-sm btn-ok" onclick="setJob(${j.id},'completed')">Complete</button>`:''}
+        <button class="btn btn-sm btn-warn" onclick="delJob(${j.id})">Delete</button>
+      </div>
+    </div>`).join('');
+}
+async function setJob(id,status){ await db.from('jobs').update({status}).eq('id',id); loadJobs(); stats(); }
+async function delJob(id){ if(!confirm('Delete permanently?'))return;
+  await db.from('jobs').delete().eq('id',id); loadJobs(); stats(); }
+
+/* ---------- OWNER: REBOOKING ---------- */
+function dueJobs(){
+  const cutoff = Date.now() - 70*86400000; // 10 weeks
+  const seen = new Set(); const out=[];
+  JOBS.filter(j=>j.status==='completed')
+      .sort((a,b)=> new Date(b.job_date)-new Date(a.job_date))
+      .forEach(j=>{
+        const key=(j.email||j.phone||j.customer_name||'').toLowerCase();
+        if(seen.has(key)) return;
+        seen.add(key);
+        if(new Date(j.job_date+'T00:00:00').getTime() < cutoff) out.push(j);
+      });
+  return out;
+}
+function renderDue(){
+  const rows = dueJobs();
+  if(!rows.length){ $('dueList').innerHTML='<div class="empty">Nobody due yet.</div>'; return; }
+  $('dueList').innerHTML = rows.map(j=>{
+    const weeks = Math.floor((Date.now()-new Date(j.job_date+'T00:00:00'))/(7*86400000));
+    const msg = encodeURIComponent(
+      `Hi ${j.customer_name}, it's K&N Premium Detailing — it's been about ${weeks} weeks since we detailed your ${j.vehicle||'car'}. Want to get booked in again?`);
+    return `<div class="row">
+      <div class="row-top">
+        <div>
+          <div class="row-name">${esc(j.customer_name)}</div>
+          <div class="row-sub">Last detailed ${esc(fmt(j.job_date))}${j.vehicle?' · '+esc(j.vehicle):''}</div>
+        </div>
+        <span class="pill p-due">${weeks} weeks ago</span>
+      </div>
+      <div class="row-acts">
+        ${j.phone?`<a class="btn btn-sm btn-info" href="sms:${esc(j.phone)}?&body=${msg}">Text</a>`:''}
+        ${j.phone?`<a class="btn btn-sm btn-ghost" href="tel:${esc(j.phone)}">Call</a>`:''}
+        ${j.email?`<a class="btn btn-sm btn-ghost" href="mailto:${esc(j.email)}?subject=Time%20for%20another%20detail%3F&body=${msg}">Email</a>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ---------- OWNER: REVIEWS ---------- */
+$('revFilters').onclick = e => {
+  if(!e.target.classList.contains('filt')) return;
+  $('revFilters').querySelectorAll('.filt').forEach(b=>b.classList.remove('on'));
+  e.target.classList.add('on'); revFilter=e.target.dataset.f; renderReviews();
+};
+function renderReviews(){
+  let rows=REVIEWS;
+  if(revFilter==='pending') rows=REVIEWS.filter(r=>!r.approved);
+  if(revFilter==='live')    rows=REVIEWS.filter(r=>r.approved);
+  if(!rows.length){ $('revList').innerHTML='<div class="empty">Nothing here.</div>'; return; }
+  $('revList').innerHTML = rows.map(r=>{
+    const n=Math.max(1,Math.min(5,r.rating));
+    return `<div class="row">
+      <div class="row-top">
+        <div>
+          <div class="stars-in">${'★'.repeat(n)}${'☆'.repeat(5-n)}</div>
+          <div class="row-name" style="margin-top:5px">${esc(r.name)}</div>
+          <div class="row-sub">${esc(fmtTs(r.created_at))}${r.vehicle?' · '+esc(r.vehicle):''}</div>
+        </div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap">
+          <span class="pill ${r.approved?'p-live':'p-pending'}">${r.approved?'Live':'Pending'}</span>
+          ${r.verified?'<span class="pill p-verified">Verified</span>':''}
+        </div>
+      </div>
+      <div class="row-body">${esc(r.review_text)}</div>
+      <div class="row-acts">
+        <button class="btn btn-sm ${r.approved?'btn-ghost':'btn-ok'}" onclick="setRev(${r.id},'approved',${!r.approved})">${r.approved?'Unpublish':'Approve'}</button>
+        <button class="btn btn-sm ${r.verified?'btn-ghost':'btn-info'}" onclick="setRev(${r.id},'verified',${!r.verified})">${r.verified?'Remove Verified':'Mark Verified'}</button>
+        <button class="btn btn-sm btn-warn" onclick="delRev(${r.id})">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+async function setRev(id,f,v){ await db.from('reviews').update({[f]:v}).eq('id',id); loadReviews(); stats(); }
+async function delRev(id){ if(!confirm('Delete permanently?'))return;
+  await db.from('reviews').delete().eq('id',id); loadReviews(); stats(); }
+
+boot();
+</script>
+</body>
+</html>
