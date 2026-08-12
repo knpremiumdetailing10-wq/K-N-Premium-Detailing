@@ -518,104 +518,6 @@ section { padding: 120px 60px; position: relative; }
   text-transform: uppercase;
 }
 
-
-/* ── LUXURY GALLERY ── */
-.lux-gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin: 0 auto;
-  max-width: 1000px;
-  text-align: left;
-}
-.lux-shot {
-  position: relative;
-  margin: 0;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  overflow: hidden;
-  background: var(--ink-mid);
-  aspect-ratio: 3/4;
-}
-.lux-shot.lux-wide { grid-column: span 2; aspect-ratio: 3/2; }
-.lux-shot img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s ease;
-}
-.lux-shot:hover img { transform: scale(1.04); }
-.lux-shot figcaption {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 26px 16px 13px;
-  background: linear-gradient(to top, rgba(6,8,16,0.92) 20%, transparent 100%);
-}
-.lux-cap-name {
-  display: block;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.82rem; font-weight: 900;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  background: var(--gold-grad);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.lux-cap-note {
-  display: block;
-  font-size: 0.66rem; letter-spacing: 0.6px;
-  color: var(--white); opacity: 0.72; margin-top: 2px;
-}
-
-/* ── RESULTS ── */
-#results {
-  background:
-    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(232,201,109,0.045) 0%, transparent 58%),
-    linear-gradient(180deg, #060810 0%, #0B0E1F 100%);
-}
-.results-intro {
-  font-size: 0.96rem; font-weight: 400;
-  color: var(--white); line-height: 1.9;
-  max-width: 520px; margin-bottom: 48px;
-}
-.ba-figure {
-  margin: 0 0 12px;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  overflow: hidden;
-  background: var(--ink-mid);
-}
-.ba-figure img { width: 100%; display: block; }
-.ba-figure figcaption {
-  padding: 14px 20px;
-  font-size: 0.72rem; font-weight: 600;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--white); opacity: 0.75;
-  border-top: 1px solid var(--rule);
-}
-.work-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-.work-shot {
-  margin: 0; position: relative;
-  border: 1px solid var(--rule);
-  border-radius: 4px; overflow: hidden;
-  background: var(--ink-mid);
-  aspect-ratio: 3/4;
-}
-.work-shot img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.5s ease;
-}
-.work-shot:hover img { transform: scale(1.04); }
-.work-shot figcaption {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 24px 14px 12px;
-  background: linear-gradient(to top, rgba(6,8,16,0.9) 20%, transparent 100%);
-  font-size: 0.66rem; font-weight: 600;
-  letter-spacing: 1.4px; text-transform: uppercase;
-  color: var(--white); opacity: 0.85;
-}
-
 /* ── SOCIALS ── */
 #socials {
   background:
@@ -1683,12 +1585,6 @@ footer small {
   .luxury-sub { font-size: 0.9rem; margin-bottom: 40px; }
   .luxury-cars { flex-direction: column; }
 
-  .lux-gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .lux-shot.lux-wide { grid-column: span 2; }
-  .work-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .results-intro { font-size: 0.9rem; margin-bottom: 32px; }
-  .ba-figure figcaption { font-size: 0.64rem; padding: 12px 14px; }
-
   .socials-grid { grid-template-columns: repeat(2, 1fr); }
   .social-card { padding: 34px 24px 30px; }
   .socials-intro { font-size: 0.9rem; margin-bottom: 40px; }
@@ -1767,7 +1663,6 @@ footer small {
   <div class="nav-logo"><em>K&N</em> Premium Detailing</div>
   <ul class="nav-links" id="navLinks">
     <li><a href="#services">Services</a></li>
-    <li><a href="#results">Our Work</a></li>
     <li><a href="#socials">Socials</a></li>
     <li><a href="#products">Products</a></li>
     <li><a href="#why">Why Us</a></li>
@@ -1884,66 +1779,18 @@ footer small {
     <h3 class="luxury-title">Entrusted With The <span class="g">World's Finest</span> Vehicles</h3>
     <div class="luxury-rule"></div>
     <p class="luxury-sub">From everyday drivers to the most coveted automobiles on the road — our work speaks for itself. K&amp;N has been trusted to care for some of the most exclusive vehicles in existence, delivering the same meticulous standard every single time.</p>
-    <div class="lux-gallery">
-      <figure class="lux-shot lux-wide">
-        <img src="images/rolls-royce-exterior.jpg" alt="Rolls-Royce Ghost detailed by K&N Premium Detailing" loading="lazy">
-        <figcaption><span class="lux-cap-name">Rolls-Royce Ghost</span><span class="lux-cap-note">Full exterior detail</span></figcaption>
-      </figure>
-      <figure class="lux-shot">
-        <img src="images/rolls-royce-interior.jpg" alt="Rolls-Royce interior after detailing" loading="lazy">
-        <figcaption><span class="lux-cap-name">Rolls-Royce Interior</span><span class="lux-cap-note">Leather cleaned &amp; conditioned</span></figcaption>
-      </figure>
-      <figure class="lux-shot">
-        <img src="images/rolls-royce-starlight.jpg" alt="Rolls-Royce Starlight Headliner" loading="lazy">
-        <figcaption><span class="lux-cap-name">Starlight Headliner</span><span class="lux-cap-note">Detailed with care</span></figcaption>
-      </figure>
-      <figure class="lux-shot">
-        <img src="images/maybach-interior.jpg" alt="Mercedes-Maybach interior detailed by K&N" loading="lazy">
-        <figcaption><span class="lux-cap-name">Mercedes-Maybach</span><span class="lux-cap-note">Full interior detail</span></figcaption>
-      </figure>
-      <figure class="lux-shot">
-        <img src="images/maybach-console.jpg" alt="Maybach console and dash detailed" loading="lazy">
-        <figcaption><span class="lux-cap-name">Maybach Cabin</span><span class="lux-cap-note">Every vent and seam</span></figcaption>
-      </figure>
+    <div class="luxury-cars">
+      <div class="luxury-car">
+        <div class="luxury-car-name">Rolls-Royce</div>
+        <div class="luxury-car-tag">Detailed to Perfection</div>
+      </div>
+      <div class="luxury-car">
+        <div class="luxury-car-name">Maybach</div>
+        <div class="luxury-car-tag">White-Glove Care</div>
+      </div>
     </div>
   </div>
 </div>
-
-<!-- RESULTS -->
-<section id="results">
-  <p class="eyebrow">Real Results</p>
-  <h2 class="sec-title">The <span class="g">Difference</span></h2>
-  <div class="sec-rule"></div>
-  <p class="results-intro">No filters, no staging. This is a headlight restoration we did on a Subaru Legacy — same light, same angle, before and after.</p>
-
-  <figure class="ba-figure">
-    <img src="images/headlight-before-after.jpg" alt="Headlight restoration before and after by K&N Premium Detailing" loading="lazy">
-    <figcaption>Headlight restoration — oxidation removed, clarity restored</figcaption>
-  </figure>
-
-  <div class="work-grid">
-    <figure class="work-shot">
-      <img src="images/exterior-suv-white.jpg" alt="White SUV after full exterior detail" loading="lazy">
-      <figcaption>Full exterior detail</figcaption>
-    </figure>
-    <figure class="work-shot">
-      <img src="images/exterior-rear-detail.jpg" alt="Rear of white SUV detailed" loading="lazy">
-      <figcaption>Paint decontaminated &amp; sealed</figcaption>
-    </figure>
-    <figure class="work-shot">
-      <img src="images/interior-clean.jpg" alt="Car interior after deep clean" loading="lazy">
-      <figcaption>Interior deep clean</figcaption>
-    </figure>
-    <figure class="work-shot">
-      <img src="images/exterior-cadillac.jpg" alt="Cadillac after detailing" loading="lazy">
-      <figcaption>Wheels &amp; trim finished</figcaption>
-    </figure>
-    <figure class="work-shot">
-      <img src="images/luxury-dash.jpg" alt="Dashboard and console detailed" loading="lazy">
-      <figcaption>Dash &amp; console dressed</figcaption>
-    </figure>
-  </div>
-</section>
 
 <!-- SOCIALS -->
 <section id="socials">
