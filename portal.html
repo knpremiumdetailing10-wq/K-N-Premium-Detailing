@@ -126,11 +126,38 @@ header{display:flex;align-items:center;justify-content:space-between;flex-wrap:w
 .empty{border:1px dashed var(--rule);border-radius:4px;padding:28px;text-align:center;
   color:var(--muted);font-style:italic;font-size:.86rem}
 .msg{font-size:.76rem;margin-top:11px;text-align:center}
+.forgot-row{text-align:center;margin-top:12px}
+.forgot-link{background:none;border:none;cursor:pointer;font-family:'Barlow',sans-serif;
+  font-size:.72rem;letter-spacing:.5px;color:var(--muted);text-decoration:underline;padding:4px}
+.forgot-link:hover{color:var(--gold-hi)}
+#recover{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px;
+  background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(184,146,74,.07) 0%,transparent 60%),
+             linear-gradient(170deg,#060810,#0B0E1F)}
 .msg.err{color:var(--red)}.msg.ok{color:var(--green)}
 .filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
 .filt{background:var(--ink-mid);border:1px solid var(--rule);border-radius:2px;color:var(--muted);
   font-size:.63rem;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;padding:8px 13px;cursor:pointer;transition:.2s}
 .filt.on{background:var(--ink-lift);color:var(--gold-hi);border-color:rgba(232,201,109,.35)}
+.range-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+.chart{display:flex;align-items:flex-end;gap:3px;height:170px;padding-top:8px}
+.bar{flex:1;min-width:3px;background:var(--gold-grad);border-radius:2px 2px 0 0;
+  position:relative;transition:opacity .2s;min-height:2px;opacity:.85}
+.bar:hover{opacity:1}
+.bar span{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
+  font-size:.6rem;color:var(--white);white-space:nowrap;opacity:0;transition:opacity .15s;
+  background:var(--ink);padding:3px 6px;border-radius:3px;border:1px solid var(--rule);
+  margin-bottom:4px;pointer-events:none;z-index:5}
+.bar:hover span{opacity:1}
+.chart-x{display:flex;justify-content:space-between;margin-top:8px;
+  font-size:.58rem;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+.brk{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid rgba(244,246,255,.05)}
+.brk:last-child{border-bottom:none}
+.brk-name{flex:1;font-size:.8rem;color:var(--white);overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.brk-bar{width:90px;height:5px;background:rgba(244,246,255,.07);border-radius:3px;overflow:hidden}
+.brk-fill{height:100%;background:var(--gold-grad)}
+.brk-val{font-size:.72rem;color:var(--muted);min-width:34px;text-align:right}
+.stats-note{font-size:.7rem;line-height:1.7;color:var(--muted);margin-top:6px}
 .banner{border:1px solid rgba(232,201,109,.3);background:rgba(232,201,109,.06);border-radius:4px;
   padding:15px 18px;margin-bottom:20px;font-size:.8rem;line-height:1.65}
 .backlink{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
@@ -164,8 +191,21 @@ header{display:flex;align-items:center;justify-content:space-between;flex-wrap:w
     <div class="fg"><label>Password</label><input type="password" id="auPass" autocomplete="current-password"></div>
 
     <button class="btn btn-gold" id="auBtn">Sign In</button>
+    <p class="forgot-row"><button type="button" class="forgot-link" id="forgotBtn">Forgot password?</button></p>
     <p class="msg err" id="auMsg"></p>
     <p style="text-align:center;margin-top:18px"><a href="index.html" class="backlink">← Back to site</a></p>
+  </div>
+</div>
+
+<!-- ═══ SET NEW PASSWORD ═══ -->
+<div id="recover" style="display:none">
+  <div class="auth-box">
+    <div class="brand"><em>K&N</em> Premium Detailing</div>
+    <div class="brand-sub">Choose a new password</div>
+    <div class="fg"><label>New Password</label><input type="password" id="rcPass" autocomplete="new-password"></div>
+    <div class="fg"><label>Confirm Password</label><input type="password" id="rcPass2" autocomplete="new-password"></div>
+    <button class="btn btn-gold" id="rcBtn">Update Password</button>
+    <p class="msg err" id="rcMsg"></p>
   </div>
 </div>
 
@@ -288,6 +328,54 @@ header{display:flex;align-items:center;justify-content:space-between;flex-wrap:w
     <div id="dueList"></div>
   </div>
 
+  <!-- ── OWNER: ANALYTICS ── -->
+  <div class="panel" id="panel-stats">
+    <div class="range-row" id="rangeRow">
+      <button class="filt on" data-r="7">7 days</button>
+      <button class="filt" data-r="30">30 days</button>
+      <button class="filt" data-r="90">90 days</button>
+    </div>
+
+    <div class="stat-row">
+      <div class="sc"><div class="sc-label">Visits</div><div class="sc-val" id="aVisits">0</div></div>
+      <div class="sc"><div class="sc-label">Sessions</div><div class="sc-val" id="aSessions">0</div></div>
+      <div class="sc"><div class="sc-label">Bookings</div><div class="sc-val" id="aBookings">0</div></div>
+      <div class="sc"><div class="sc-label">Booking Rate</div><div class="sc-val" id="aConv">—</div></div>
+      <div class="sc"><div class="sc-label">Revenue</div><div class="sc-val" id="aRev">$0</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Traffic</div>
+      <div class="chart" id="chartViews"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Revenue by Month</div>
+        <div class="chart" id="chartRev"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Where Visitors Come From</div>
+        <div id="refList"></div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Service Mix</div>
+        <div id="svcList"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Device</div>
+        <div id="devList"></div>
+      </div>
+    </div>
+
+    <p class="stats-note">Traffic figures are approximate — ad blockers and bots make exact
+    visitor counts impossible for any self-hosted tracker. Bookings and revenue come from your
+    own records and are exact.</p>
+  </div>
+
   <!-- ── OWNER: REVIEWS ── -->
   <div class="panel" id="panel-reviews">
     <div class="banner">
@@ -390,7 +478,7 @@ function start(session){
 
 function buildTabs(){
   const t = IS_OWNER
-    ? [['requests','Requests'],['jobs','Jobs'],['due','Rebooking'],['reviews','Reviews']]
+    ? [['requests','Requests'],['jobs','Jobs'],['stats','Analytics'],['due','Rebooking'],['reviews','Reviews']]
     : [['book','Book'],['mine','My Appointments']];
   $('tabs').innerHTML = t.map((x,i)=>
     `<button class="tab${i===0?' active':''}" data-tab="${x[0]}">${x[1]}</button>`).join('');
@@ -416,9 +504,9 @@ function prefill(){
 /* ---------- LOAD ---------- */
 async function loadAll(){
   const jobs = [ loadAppts(), loadReviews() ];
-  if(IS_OWNER) jobs.push(loadJobs());
+  if(IS_OWNER) { jobs.push(loadJobs()); jobs.push(loadViews()); }
   await Promise.all(jobs);
-  if(IS_OWNER) stats();
+  if(IS_OWNER) { stats(); renderStats(); }
 }
 
 async function loadAppts(){
@@ -664,6 +752,160 @@ function renderReviews(){
 async function setRev(id,f,v){ await db.from('reviews').update({[f]:v}).eq('id',id); loadReviews(); stats(); }
 async function delRev(id){ if(!confirm('Delete permanently?'))return;
   await db.from('reviews').delete().eq('id',id); loadReviews(); stats(); }
+
+/* ---------- ANALYTICS ---------- */
+let VIEWS = [], range = 7;
+
+$('rangeRow').onclick = e => {
+  if (!e.target.classList.contains('filt')) return;
+  $('rangeRow').querySelectorAll('.filt').forEach(b => b.classList.remove('on'));
+  e.target.classList.add('on');
+  range = +e.target.dataset.r;
+  renderStats();
+};
+
+async function loadViews() {
+  const since = new Date(Date.now() - 90*86400000).toISOString();
+  const { data, error } = await db.from('page_views')
+    .select('created_at, path, referrer, session_id, device')
+    .gte('created_at', since)
+    .order('created_at', { ascending: false })
+    .limit(5000);
+  if (error) { console.error('views:', error.message); VIEWS = []; }
+  else VIEWS = data || [];
+  renderStats();
+}
+
+function bars(el, series, fmt) {
+  const max = Math.max(1, ...series.map(s => s.v));
+  el.innerHTML = series.map(s =>
+    `<div class="bar" style="height:${Math.max(2,(s.v/max)*100)}%">
+       <span>${s.label}: ${fmt ? fmt(s.v) : s.v}</span>
+     </div>`).join('');
+}
+
+function breakdown(el, pairs, empty) {
+  if (!pairs.length) { el.innerHTML = `<div class="empty">${empty}</div>`; return; }
+  const max = Math.max(...pairs.map(p => p[1]));
+  el.innerHTML = pairs.slice(0,6).map(([n,v]) => `
+    <div class="brk">
+      <span class="brk-name">${esc(n)}</span>
+      <span class="brk-bar"><span class="brk-fill" style="width:${(v/max)*100}%;display:block"></span></span>
+      <span class="brk-val">${v}</span>
+    </div>`).join('');
+}
+
+function renderStats() {
+  if (!IS_OWNER) return;
+  const cut = Date.now() - range*86400000;
+  const v = VIEWS.filter(x => new Date(x.created_at).getTime() >= cut);
+  const appts = APPTS.filter(a => new Date(a.created_at).getTime() >= cut);
+
+  const sessions = new Set(v.map(x => x.session_id).filter(Boolean)).size;
+  $('aVisits').textContent   = v.length;
+  $('aSessions').textContent = sessions;
+  $('aBookings').textContent = appts.length;
+  $('aConv').textContent     = sessions ? ((appts.length/sessions)*100).toFixed(1) + '%' : '—';
+
+  const revJobs = JOBS.filter(j => j.status === 'completed' &&
+                    new Date(j.job_date+'T00:00:00').getTime() >= cut);
+  $('aRev').textContent = '$' + revJobs.reduce((t,j)=>t+(parseFloat(j.price)||0),0).toFixed(0);
+
+  /* traffic per day */
+  const days = [];
+  for (let i = range-1; i >= 0; i--) {
+    const d = new Date(Date.now() - i*86400000);
+    const key = d.toISOString().slice(0,10);
+    days.push({ key,
+      label: d.toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+      v: v.filter(x => x.created_at.slice(0,10) === key).length });
+  }
+  bars($('chartViews'), days);
+
+  /* revenue by month, last 6 */
+  const months = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(); d.setDate(1); d.setMonth(d.getMonth()-i);
+    const key = d.toISOString().slice(0,7);
+    months.push({ key,
+      label: d.toLocaleDateString('en-US',{month:'short'}),
+      v: JOBS.filter(j => j.status==='completed' && (j.job_date||'').slice(0,7)===key)
+             .reduce((t,j)=>t+(parseFloat(j.price)||0),0) });
+  }
+  bars($('chartRev'), months, n => '$'+n.toFixed(0));
+
+  /* referrers */
+  const refs = {};
+  v.forEach(x => {
+    let r = (x.referrer || '').trim();
+    if (!r) { refs['Direct / typed in'] = (refs['Direct / typed in']||0)+1; return; }
+    try { r = new URL(r).hostname.replace(/^www\./,''); } catch(e) {}
+    refs[r] = (refs[r]||0)+1;
+  });
+  breakdown($('refList'), Object.entries(refs).sort((a,b)=>b[1]-a[1]), 'No traffic recorded yet.');
+
+  /* service mix */
+  const svc = {};
+  appts.forEach(a => { const s=(a.service||'Unspecified').split('—')[0].trim(); svc[s]=(svc[s]||0)+1; });
+  breakdown($('svcList'), Object.entries(svc).sort((a,b)=>b[1]-a[1]), 'No bookings in this period.');
+
+  /* device */
+  const dev = {};
+  v.forEach(x => { const d=x.device||'unknown'; dev[d[0].toUpperCase()+d.slice(1)]=(dev[d[0].toUpperCase()+d.slice(1)]||0)+1; });
+  breakdown($('devList'), Object.entries(dev).sort((a,b)=>b[1]-a[1]), 'No traffic recorded yet.');
+}
+
+/* ---------- PASSWORD RESET ---------- */
+$('forgotBtn').onclick = async () => {
+  if (!db) return;
+  const msg = $('auMsg');
+  const email = $('auEmail').value.trim();
+  if (!email) {
+    msg.className = 'msg err';
+    msg.textContent = 'Enter your email above first, then tap this again.';
+    $('auEmail').focus();
+    return;
+  }
+  const btn = $('forgotBtn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  const back = window.location.origin + window.location.pathname;
+  const { error } = await db.auth.resetPasswordForEmail(email, { redirectTo: back });
+  btn.disabled = false; btn.textContent = 'Forgot password?';
+  if (error) { msg.className = 'msg err'; msg.textContent = error.message; return; }
+  msg.className = 'msg ok';
+  msg.textContent = 'Check your email for a reset link.';
+};
+
+/* arriving back from the reset email */
+if (db) {
+  db.auth.onAuthStateChange((event) => {
+    if (event === 'PASSWORD_RECOVERY') {
+      $('auth').style.display = 'none';
+      $('app').style.display = 'none';
+      $('recover').style.display = 'flex';
+    }
+  });
+}
+
+$('rcBtn').onclick = async () => {
+  const msg = $('rcMsg'), btn = $('rcBtn');
+  const p1 = $('rcPass').value, p2 = $('rcPass2').value;
+  if (p1.length < 6) { msg.className='msg err'; msg.textContent='Use at least 6 characters.'; return; }
+  if (p1 !== p2)     { msg.className='msg err'; msg.textContent="Passwords don't match."; return; }
+  btn.disabled = true; btn.textContent = 'Updating...';
+  const { error } = await db.auth.updateUser({ password: p1 });
+  btn.disabled = false; btn.textContent = 'Update Password';
+  if (error) { msg.className='msg err'; msg.textContent = error.message; return; }
+  msg.className = 'msg ok';
+  msg.textContent = 'Password updated. Loading your account...';
+  const { data } = await db.auth.getSession();
+  setTimeout(() => {
+    $('recover').style.display = 'none';
+    if (data.session) start(data.session); else location.reload();
+  }, 1200);
+};
+
+$('rcPass2').addEventListener('keydown', e => { if (e.key === 'Enter') $('rcBtn').click(); });
 
 boot();
 </script>

@@ -3,7 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>K&N Premium Detailing</title>
+<title>K&N Premium Detailing | Mobile Car Detailing in Bridgewater, NJ</title>
+<meta name="description" content="Mobile car detailing in Bridgewater, NJ. Interior and exterior detailing from $60 — we come to you. Trusted with Rolls-Royce and Maybach. Book online.">
+<link rel="canonical" href="SITE_URL_HERE">
+
+<!-- social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="K&N Premium Detailing | Mobile Detailing in Bridgewater, NJ">
+<meta property="og:description" content="Interior and exterior detailing from $60. We come to you. Trusted with Rolls-Royce and Maybach.">
+<meta property="og:url" content="SITE_URL_HERE">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- tells Google this is a local business -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutoDetailing",
+  "name": "K&N Premium Detailing",
+  "description": "Mobile car detailing serving Bridgewater, New Jersey and surrounding towns.",
+  "url": "SITE_URL_HERE",
+  "email": "knpremiumdetailing10@gmail.com",
+  "telephone": "+19083041000",
+  "foundingDate": "2026",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bridgewater",
+    "addressRegion": "NJ",
+    "addressCountry": "US"
+  },
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 40.5937, "longitude": -74.6046 },
+    "geoRadius": "25000"
+  },
+  "priceRange": "$60-$100",
+  "sameAs": [
+    "https://www.instagram.com/knpremiumdetailing10",
+    "https://www.tiktok.com/@knpremiumdetailing"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Detailing Services",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Express Wash & Shine" }, "price": "60", "priceCurrency": "USD" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Premium Interior & Exterior Detail" }, "price": "100", "priceCurrency": "USD" }
+    ]
+  }
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@300;600;700;900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -517,6 +564,7 @@ section { padding: 120px 60px; position: relative; }
   margin-left: 6px;
   text-transform: uppercase;
 }
+
 
 /* ── SOCIALS ── */
 #socials {
@@ -1349,6 +1397,13 @@ section { padding: 120px 60px; position: relative; }
   font-size: 0.72rem; font-weight: 400; line-height: 1.6;
   color: var(--white); opacity: 0.55; margin-bottom: 16px;
 }
+.ai-forgot {
+  font-size: 0.7rem; letter-spacing: 0.4px;
+  color: var(--white); opacity: 0.55;
+  text-decoration: underline; transition: opacity 0.2s, color 0.2s;
+}
+.ai-forgot:hover { color: var(--gold-hi); opacity: 1; }
+
 .ai-msg { font-size: 0.72rem; text-align: center; margin-top: 10px; }
 .ai-msg.err { color: #E87D7D; }
 .ai-msg.ok  { color: var(--gold-hi); }
@@ -1585,6 +1640,7 @@ footer small {
   .luxury-sub { font-size: 0.9rem; margin-bottom: 40px; }
   .luxury-cars { flex-direction: column; }
 
+
   .socials-grid { grid-template-columns: repeat(2, 1fr); }
   .social-card { padding: 34px 24px 30px; }
   .socials-intro { font-size: 0.9rem; margin-bottom: 40px; }
@@ -1654,6 +1710,34 @@ footer small {
      ═══════════════════════════════════════════════════════ */
   const SUPABASE_URL      = 'https://yadagidxhgstzazuohdx.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_KqPYJ6HmAbrurRreTPphFw_Ol0xmkdG';
+
+  /* One shared client for the whole page. Creating more than one
+     causes "Multiple GoTrueClient instances" and flaky auth. */
+  var _ok = SUPABASE_URL.indexOf('YOUR_') === -1 && SUPABASE_ANON_KEY.indexOf('YOUR_') === -1;
+  window.KN_DB = (_ok && window.supabase)
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
+
+  /* ---- lightweight page view logging (no IP, no personal data) ---- */
+  (function () {
+    if (!window.KN_DB) return;
+    try {
+      var sid = sessionStorage.getItem('kn_sid');
+      if (!sid) {
+        sid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+        sessionStorage.setItem('kn_sid', sid);
+      }
+      var ref = document.referrer || '';
+      if (ref.indexOf(location.hostname) !== -1) ref = '';   // ignore internal
+      window.KN_DB.from('page_views').insert({
+        path: location.pathname.slice(0, 200),
+        referrer: ref.slice(0, 300),
+        session_id: sid,
+        device: window.matchMedia('(max-width: 860px)').matches ? 'mobile' : 'desktop'
+      }).then(function(){}, function(){});   // fire and forget
+    } catch (e) {}
+  })();
+
 </script>
 </head>
 <body>
@@ -2041,6 +2125,9 @@ footer small {
         <div class="form-group"><label>Email</label><input type="email" id="aiEmail" autocomplete="username"></div>
         <div class="form-group"><label>Password</label><input type="password" id="aiPass" autocomplete="current-password"></div>
         <button type="button" class="btn-submit" id="aiGo">Sign In</button>
+        <p style="text-align:center;margin-top:10px">
+          <a href="portal.html" class="ai-forgot">Forgot password?</a>
+        </p>
         <p class="ai-msg" id="aiMsg"></p>
       </div>
 
@@ -2089,10 +2176,7 @@ footer small {
     const form = document.getElementById('quoteForm');
     if (!form) return;
 
-    const ready = typeof SUPABASE_URL !== 'undefined'
-      && SUPABASE_URL.indexOf('YOUR_') === -1
-      && SUPABASE_ANON_KEY.indexOf('YOUR_') === -1;
-    const db = ready ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+    const db = window.KN_DB;
 
     const $ = i => document.getElementById(i);
     let ME = null, mode = 'in';
@@ -2205,7 +2289,8 @@ footer small {
         btn.style.display = 'none';
         $('form-success').style.display = 'block';
       } catch (err) {
-        console.error('Booking failed:', err);
+        console.error('Booking failed:',
+          err && (err.message || err.hint || err.details || err.code) || err);
         btn.textContent = 'Error — Try Again';
         btn.disabled = false;
       }
@@ -2290,14 +2375,7 @@ footer small {
     const form    = document.getElementById('reviewForm');
     if (!listEl) return;
 
-    const configured =
-      typeof SUPABASE_URL !== 'undefined' &&
-      SUPABASE_URL.indexOf('YOUR_') === -1 &&
-      SUPABASE_ANON_KEY.indexOf('YOUR_') === -1;
-
-    const db = configured
-      ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-      : null;
+    const db = window.KN_DB;
 
     const esc = s => String(s).replace(/[&<>"']/g,
       c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -2368,7 +2446,9 @@ footer small {
         if (error) throw error;
         render(data || []);
       } catch (err) {
-        console.error('Review load failed:', err);
+        console.error('Review load failed:',
+          err && (err.message || err.hint || err.details || err.code) || err);
+        console.error('full error object:', JSON.stringify(err));
         showEmpty('Reviews are temporarily unavailable.');
       }
     }
